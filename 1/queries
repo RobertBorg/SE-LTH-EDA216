@@ -2,4 +2,67 @@ select firstName, lastName
 from Students
 
 
+select firstName, lastName
+from Students
+Order by lastName, firstName
+
+Select *
+from Students
+where pNbr LIKE '1975%'
+
+Select firstName, lastName, pNbr
+from Students
+where mod((int)substr(pNbr,8,1),2) = 0
+
+select count(pNbr)
+from Students
+
+select *
+from Courses
+where courseCode LIKE 'FMA%'
+
+Select *
+from Courses
+where credits > 5
+
+select courseCode
+from TakenCourses
+where pNbr = '790101-1234'
+
+select courseName, credits
+from Courses, TakenCourses
+where TakenCourses.courseCode = Courses.courseCode, TakenCourses.pNbr = '790101-1234'
+
+select SUM(credits)
+from Courses, TakenCourses
+where TakenCourses.courseCode = Courses.courseCode, TakenCourses.pNbr = '790101-1234'
+
+select SUM(TakenCourses.grade)/SUM(Courses.credits)
+from Courses, TakenCourses
+where TakenCourses.courseCode = Courses.courseCode, TakenCourses.pNbr = '790101-1234'
+
+select courseCode
+from TakenCourses, Students
+where TakenCourses.pNbr = Students.pNbr, firstName = 'Eva' AND lastName = 'Alm'
+
+select courseName, credits
+from Courses, TakenCourses, Students
+where TakenCourses.courseCode = Courses.courseCode, TakenCourses.pNbr = Students.pNbr, firstName = 'Eva' AND lastName = 'Alm'
+
+select SUM(credits)
+from Courses, TakenCourses, Students
+where TakenCourses.courseCode = Courses.courseCode, TakenCourses.pNbr = Students.pNbr, firstName = 'Eva' AND lastName = 'Alm'
+
+select SUM(TakenCourses.grade)/SUM(Courses.credits)
+from Courses, TakenCourses, Students
+where TakenCourses.courseCode = Courses.courseCode, TakenCourses.pNbr = Students.pNbr, firstName = 'Eva' AND lastName = 'Alm'
+
+select Students.*
+from Students, TakenCourses, Courses
+where Students.pNbr = TakenCourses.pNbr, TakenCourses.couseCode = Courses.courseCode, SUM(Courses.credits) = 0
+
+create view StudentGradeAvg as 
+select pNbr, avg(TakenCourses.grade)
+from TakenCourses
+
 
