@@ -1,82 +1,93 @@
 select firstName, lastName
-from Students
-
+from Students;
 
 select firstName, lastName
 from Students
-Order by lastName, firstName
+Order by lastName, firstName;
 
 Select *
 from Students
-where pNbr LIKE '1975%'
+where pNbr LIKE '75%';
 
 Select firstName, lastName, pNbr
 from Students
-where mod((int)substr(pNbr,8,1),2) = 0
+where mod(substr(pNbr,10,1),2) = 0;
 
 select count(pNbr)
-from Students
+from Students;
 
 select *
 from Courses
-where courseCode LIKE 'FMA%'
+where courseCode LIKE 'FMA%';
 
 Select *
 from Courses
-where credits > 5
+where credits > 5;
 
 select courseCode
 from TakenCourses
-where pNbr = '790101-1234'
+where pNbr = '790101-1234';
 
 select courseName, credits
 from Courses, TakenCourses
-where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = '790101-1234'
+where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = '790101-1234';
 
 select SUM(credits)
 from Courses, TakenCourses
-where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = '790101-1234'
+where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = '790101-1234';
 
 select SUM(TakenCourses.grade)/SUM(Courses.credits)
 from Courses, TakenCourses
-where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = '790101-1234'
+where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = '790101-1234';
 
 select courseCode
 from TakenCourses, Students
-where TakenCourses.pNbr = Students.pNbr and firstName = 'Eva' AND lastName = 'Alm'
+where TakenCourses.pNbr = Students.pNbr and firstName = 'Eva' AND lastName = 'Alm';
 
 select courseName, credits
 from Courses, TakenCourses, Students
-where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = Students.pNbr and firstName = 'Eva' AND lastName = 'Alm'
+where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = Students.pNbr and firstName = 'Eva' AND lastName = 'Alm';
 
 select SUM(credits)
 from Courses, TakenCourses, Students
-where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = Students.pNbr and firstName = 'Eva' AND lastName = 'Alm'
+where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = Students.pNbr and firstName = 'Eva' AND lastName = 'Alm';
 
 select SUM(TakenCourses.grade)/SUM(Courses.credits)
 from Courses, TakenCourses, Students
-where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = Students.pNbr and firstName = 'Eva' AND lastName = 'Alm'
+where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = Students.pNbr and firstName = 'Eva' AND lastName = 'Alm';
 
 select Students.*
-from Students, TakenCourses, Courses
-where Students.pNbr = TakenCourses.pNbr and TakenCourses.couseCode = Courses.courseCode and SUM(Courses.credits) = 0
+from Students
+where pnbr not in (select pnbr 
+from takencourses);
 
 create view StudentGradeAvg as 
-select pNbr, avg(TakenCourses.grade)
-from TakenCourses
-
-select pNbr, SUM(coalesce(credits,0))
-from takencourses
-
-select firstname, lastname, SUM(coalesce(credits,0))
-from takencourses, students
+select students.pNbr, avg(TakenCourses.grade)
+from Students, takencourses
 where students.pnbr = takencourses.pnbr
+group by pnbr;
+
+(select students.pNbr, coalesce(SUM(credits),0)
+from students, takencourses, courses
+where takencourses.pnbr = students.pnbr and takencourses.coursecode = courses.courseCode
+group by students.pnbr) 
+union 
+(select pnbr, 0
+from students
+where pnbr not in ( select pnbr from takencourses));
+
+(select firstname, lastname, coalesce(SUM(credits),0)
+from students, takencourses, courses
+where takencourses.pnbr = students.pnbr and takencourses.coursecode = courses.courseCode
+group by students.pnbr) 
+union 
+(select firstname,lastname, 0
+from students
+where pnbr not in ( select pnbr from takencourses));
 
 select distinct Old.firstname, Old.lastname, Old.pnbr
 from students Old, students New
 where Old.firstname = New.firstname and
-      Old.lastanme = New.lastname and
-      Old.pnbr <> New.pnbr
+      Old.lastname = New.lastname and
+      Old.pnbr <> New.pnbr;
 	
-
-
