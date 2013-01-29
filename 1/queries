@@ -31,35 +31,35 @@ where pNbr = '790101-1234'
 
 select courseName, credits
 from Courses, TakenCourses
-where TakenCourses.courseCode = Courses.courseCode, TakenCourses.pNbr = '790101-1234'
+where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = '790101-1234'
 
 select SUM(credits)
 from Courses, TakenCourses
-where TakenCourses.courseCode = Courses.courseCode, TakenCourses.pNbr = '790101-1234'
+where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = '790101-1234'
 
 select SUM(TakenCourses.grade)/SUM(Courses.credits)
 from Courses, TakenCourses
-where TakenCourses.courseCode = Courses.courseCode, TakenCourses.pNbr = '790101-1234'
+where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = '790101-1234'
 
 select courseCode
 from TakenCourses, Students
-where TakenCourses.pNbr = Students.pNbr, firstName = 'Eva' AND lastName = 'Alm'
+where TakenCourses.pNbr = Students.pNbr and firstName = 'Eva' AND lastName = 'Alm'
 
 select courseName, credits
 from Courses, TakenCourses, Students
-where TakenCourses.courseCode = Courses.courseCode, TakenCourses.pNbr = Students.pNbr, firstName = 'Eva' AND lastName = 'Alm'
+where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = Students.pNbr and firstName = 'Eva' AND lastName = 'Alm'
 
 select SUM(credits)
 from Courses, TakenCourses, Students
-where TakenCourses.courseCode = Courses.courseCode, TakenCourses.pNbr = Students.pNbr, firstName = 'Eva' AND lastName = 'Alm'
+where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = Students.pNbr and firstName = 'Eva' AND lastName = 'Alm'
 
 select SUM(TakenCourses.grade)/SUM(Courses.credits)
 from Courses, TakenCourses, Students
-where TakenCourses.courseCode = Courses.courseCode, TakenCourses.pNbr = Students.pNbr, firstName = 'Eva' AND lastName = 'Alm'
+where TakenCourses.courseCode = Courses.courseCode and TakenCourses.pNbr = Students.pNbr and firstName = 'Eva' AND lastName = 'Alm'
 
 select Students.*
 from Students, TakenCourses, Courses
-where Students.pNbr = TakenCourses.pNbr, TakenCourses.couseCode = Courses.courseCode, SUM(Courses.credits) = 0
+where Students.pNbr = TakenCourses.pNbr and TakenCourses.couseCode = Courses.courseCode and SUM(Courses.credits) = 0
 
 create view StudentGradeAvg as 
 select pNbr, avg(TakenCourses.grade)
