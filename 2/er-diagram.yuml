@@ -1,6 +1,7 @@
 // can be compiled at http://yuml.me/diagram/scruffy/class/draw
 [Users|id;username;name;address;phoneNumber],
-[Theaters|id primary;name;numberOfSeats],
+[note: id is primary key{bg:cornsilk}],
+[Theaters|id;name;numberOfSeats],
 [Movies|id;name],
 [＜＜weak＞＞;Reservations|id;reservationNumber;theaterId;date;userId],
 [＜＜weak＞＞;Reservations]0..*-1[Theaters],
