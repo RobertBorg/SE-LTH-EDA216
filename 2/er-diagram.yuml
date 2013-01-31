@@ -2,7 +2,7 @@
 [Users|id;username;name;address;phoneNumber],
 [Theaters|id primary;name;numberOfSeats],
 [Movies|id;name],
-[Reservations|id;reservationNumber;theaterId;date;userId],
-[Reservations]0..*-1[Theaters],
-[Reservations]0..*-1[Users],
+[＜＜weak＞＞;Reservations|id;reservationNumber;theaterId;date;userId],
+[＜＜weak＞＞;Reservations]0..*-1[Theaters],
+[＜＜weak＞＞;Reservations]0..*-1[Users],
 [Theaters]0..*-1[Movies]
