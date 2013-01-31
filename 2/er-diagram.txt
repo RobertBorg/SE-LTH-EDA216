@@ -1,0 +1,4 @@
+[Users|id;username;name;address;phoneNumber]
+[Theaters|id;name;numberOfSeats]
+[Movies|id;name]
+[Reservations|id;reservationNumber;theaterId;date;username]
