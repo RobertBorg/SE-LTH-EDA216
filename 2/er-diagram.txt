@@ -1,4 +1,8 @@
-[Users|id;username;name;address;phoneNumber]
-[Theaters|id;name;numberOfSeats]
-[Movies|id;name]
-[Reservations|id;reservationNumber;theaterId;date;username]
+// can be compiled at http://yuml.me/diagram/scruffy/class/draw
+[Users|id;username;name;address;phoneNumber],
+[Theaters|id primary;name;numberOfSeats],
+[Movies|id;name],
+[Reservations|id;reservationNumber;theaterId;date;userId],
+[Reservations]0..*-1[Theaters],
+[Reservations]0..*-1[Users],
+[Theaters]0..*-1[Movies]
