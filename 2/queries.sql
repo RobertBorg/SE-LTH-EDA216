@@ -34,3 +34,24 @@ address varchar(256)
 ...
 -- Insert data into the tables.
 insert into Users values(...);
+
+create table Movies (
+id PRIMARY KEY NOT NULL, 
+name char(20) NOT NULL);
+
+create table Theaters(
+id PRIMARY KEY NOT NULL,
+name char(20) NOT NULL,
+numberOfSeats int NOT NULL);
+
+create table Performances (
+id PRIMARY KEY NOT NULL,
+movieId int NOT NULL,
+theaterId int NOT NULL,
+date DATE NOT NULL);
+
+create table Reservations (
+id PRIMARY KEY NOT NULL,
+reservationNumber int NOT NULL,
+performanceId int NOT NULL,
+userId int NOT NULL);
