@@ -1,0 +1,5 @@
+Theaters(_id_, _name_, numberOfSeats)
+Movies(_id_, name)
+Performances(_id_, _movieId_, _theaterId_, date)
+Users(_id_, userName, name, address, phoneNumber)
+Reservations(_id_, reservationNumber, _performanceId_, _userId_)
