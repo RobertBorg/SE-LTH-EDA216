@@ -19,42 +19,50 @@ DROP TABLE IF EXISTS Reservations;
 
 DROP TABLE IF EXISTS Performances;
 
-
-SET foreign_key_checks = 1;
-
-
 -- Create the tables.
 create table Users (
-id PRIMARY KEY NOT NULL AUTO_INCREMENT,
+id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
 username char(20) NOT NULL UNIQUE,
 name char(20) NOT NULL,
-phoneNumber char(20) NOT NULL
+phoneNumber char(20) NOT NULL,
 address varchar(256)
 );
 
 create table Movies (
-id PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+id int PRIMARY KEY NOT NULL AUTO_INCREMENT, 
 name char(20) NOT NULL);
 
 create table Theaters(
-id PRIMARY KEY NOT NULL AUTO_INCREMENT,
-name FOREIGN KEY char(20) NOT NULL,
-numberOfSeats int NOT NULL);
+id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+name char(20) NOT NULL,
+numberOfSeats int NOT NULL
+);
 
 create table Performances (
-id PRIMARY KEY NOT NULL AUTO_INCREMENT,
-movieId FOREIGN KEY int NOT NULL,
-theaterId FOREIGN KEY int NOT NULL,
-date DATE NOT NULL);
+id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+movieId int NOT NULL,
+theaterId int NOT NULL,
+theDate DATE NOT NULL,
+FOREIGN KEY(movieId)
+  REFERENCES Movies(id),
+FOREIGN KEY(theaterId)
+  REFERENCES Theaters(id)
+);
 
 create table Reservations (
-id PRIMARY KEY NOT NULL AUTO_INCREMENT,
-reservationNumber  int NOT NULL AUTO_INCREMENT,
-performanceId FOREIGN KEY int NOT NULL,
-userId FOREIGN KEY int NOT NULL);
+reservationNumber int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+performanceId int NOT NULL,
+userId int NOT NULL,
+FOREIGN KEY(performanceId)
+  REFERENCES Performances(id),
+FOREIGN KEY(userId)
+  REFERENCES Users(id)
+);
+
+SET foreign_key_checks = 1;
 
 -- Insert data into the tables.
-insert into Users values('Sane', 'Christofer Heimonen', '0707283358', 'Spolegatan 15 22220 Lund');
+insert into Users(username, name, phoneNumber, address) values('Sane', 'Christofer Heimonen', '0707283358', 'Spolegatan 15 22220 Lund');
 insert into Users values('Rauban', 'Robert Borg', '0703213355', 'Trollgatan 14 34323 Lund');
 insert into Users values('Troll', 'Andorz Trollheim', '0734384234', 'Sturevagen 123 34320 Lund');
 insert into Users values('Apa', 'Thomas Svensson', '0703828399', 'Gatan 23 23222 Göteborg');
