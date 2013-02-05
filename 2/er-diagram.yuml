@@ -3,7 +3,7 @@
 [note: id is primary key in all entities{bg:cornsilk}],
 [Theaters|id;name;numberOfSeats],
 [Movies|id;name],
-[＜＜weak＞＞;Reservations|id;reservationNumber;performanceId;userId],
+[＜＜weak＞＞;Reservations|reservationNumber;performanceId;userId],
 [＜＜weak＞＞;Performances|id;movieId;theaterId;date],
 [＜＜weak＞＞;Reservations]0..*-1[＜＜weak＞＞;Performances],
 [＜＜weak＞＞;Reservations]0..*-1[Users],
