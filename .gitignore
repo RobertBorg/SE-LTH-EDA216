@@ -19,3 +19,6 @@ sftp-config*.json
 #Eclipse
 bin/
 *.class
+
+#lab3
+.eda216-lab3-settings
