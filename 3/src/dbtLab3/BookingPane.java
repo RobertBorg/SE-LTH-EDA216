@@ -268,7 +268,12 @@ public class BookingPane extends BasicPane {
 			}
 			String movieName = (String) nameList.getSelectedValue();
 			String date = (String) dateList.getSelectedValue();
-			/* --- insert own code here --- */
+			String rNum = db.tryMakeReservation(date, movieName, CurrentUser.instance().getCurrentUserId());
+			if( rNum != null){
+				displayMessage(String.format("Reservation made; Your Reservation number is: %s", rNum));
+			} else {
+				displayMessage(String.format("Unable to make reservation for date: %s, Movie name: %s, UserId: %s",date,movieName, CurrentUser.instance().getCurrentUserId()));
+			}
 		}
 	}
 }

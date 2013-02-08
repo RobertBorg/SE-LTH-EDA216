@@ -161,12 +161,78 @@ public class Database {
 		return false;
 	}
 	
-	public String makeReservation(String date, String movieName, String username) {
+	public String tryMakeReservation(String date, String movieName, String username) {
+		Savepoint savepoint = null;
+		try {
+			savepoint = conn.setSavepoint();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(savepoint == null){
+			return null;
+		}
+		
+		if(getNumberOfAvailableSeats(date, movieName) > 0){
+			
+			String rNum =  makeReservation(date, movieName, username);
+			try {
+				conn.commit();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return rNum;
+		} else {
+			try {
+				conn.rollback(savepoint);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	private int getNumberOfAvailableSeats(String date, String movieName) {
+		String sql = "select " +
+				"(Select numberofseats as numtotal" +
+				"from theaters, performances,movies" +
+				"where theaters.id = performances.theaterId and performances.movieId = movies.id and performances.thedate = ? and movies.name like ?)" +
+				"-" +
+				"(Select count(reservationNumber) as numReserved" +
+				"from Movies,Performances,Reservations" +
+				"where Reservations.performanceId = Performances.id and Performances.movieId = Movies.id and Performances.thedate = ? and Movies.name LIKE ?)";
+		
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, date);
+			ps.setString(2, movieName);
+			ps.setString(3, date);
+			ps.setString(4, movieName);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps != null) ps.close();
+			} catch(SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+		return -1;
+	}
+	
+	private String makeReservation(String date, String movieName, String username) {
 		String sql = "insert into Reservations(performanceId, userId)" +
 		"OUTPUT Inserted.reservationNumber" +
 		"select Performances.id" +
 		"from Performances, Users, Movies" +
-		"where Performances.theDate = ? and Performances.movieId = Movies.id and Movies.name = ? and Users.username LIKE ?;";
+		"where Performances.theDate = ? and Performances.movieId = Movies.id and Movies.name = ? and Users.username LIKE ?";
 		PreparedStatement ps = null;
 		try {
 			ps = conn.prepareStatement(sql);
