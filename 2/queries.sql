@@ -59,6 +59,7 @@ FOREIGN KEY(performanceId)
   REFERENCES Performances(id),
 FOREIGN KEY(userId)
   REFERENCES Users(id)
+CONSTRAINT oncePerPerformance UNIQUE (performanceId,userId)
 );
 
 SET foreign_key_checks = 1;
