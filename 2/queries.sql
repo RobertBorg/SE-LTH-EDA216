@@ -30,7 +30,8 @@ address varchar(256)
 
 create table Movies (
 id int PRIMARY KEY NOT NULL AUTO_INCREMENT, 
-name char(20) NOT NULL);
+name char(20) NOT NULL UNIQUE
+);
 
 create table Theaters(
 id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
