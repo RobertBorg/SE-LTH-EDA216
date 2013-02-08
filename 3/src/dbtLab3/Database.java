@@ -146,7 +146,7 @@ public class Database {
 				String otherDate = rs.getString("Performances.theDate");
 				String otherMovieName = rs.getString("Movies.name");
 				String otherTheater = rs.getString("Theaters.name");
-				String otherFreeSeats = rs.getString("Theaters.numberOfSeats");
+				String otherFreeSeats = Integer.toString(getNumberOfAvailableSeats(otherDate, otherMovieName));
 				toReturn.add(new SingleObjectHolder<String>(id, otherMovieName, otherDate, otherTheater, otherFreeSeats));
 			}
 		} catch (SQLException e) {
@@ -202,14 +202,17 @@ public class Database {
 		
 		if(getNumberOfAvailableSeats(date, movieName) > 0){
 			
-			String rNum =  makeReservation(date, movieName, username);
-			try {
-				conn.commit();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			int rNum =  makeReservation(date, movieName, username);
+			if(rNum >= 0){
+				return Integer.toString(rNum);
+			} else {
+				try {
+					conn.rollback(savepoint);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-			return rNum;
 		} else {
 			try {
 				conn.rollback(savepoint);
@@ -223,12 +226,12 @@ public class Database {
 	
 	private int getNumberOfAvailableSeats(String date, String movieName) {
 		String sql = "select " +
-				"(Select numberofseats as numtotal" +
-				"from theaters, performances,movies" +
+				"(Select numberofseats " +
+				"from theaters, performances,movies " +
 				"where theaters.id = performances.theaterId and performances.movieId = movies.id and performances.thedate = ? and movies.name like ?)" +
 				"-" +
-				"(Select count(reservationNumber) as numReserved" +
-				"from Movies,Performances,Reservations" +
+				"(Select count(reservationNumber) as numReserved " +
+				"from Movies,Performances,Reservations " +
 				"where Reservations.performanceId = Performances.id and Performances.movieId = Movies.id and Performances.thedate = ? and Movies.name LIKE ?)";
 		
 		PreparedStatement ps = null;
@@ -254,11 +257,10 @@ public class Database {
 		return -1;
 	}
 	
-	private String makeReservation(String date, String movieName, String username) {
-		String sql = "insert into Reservations(performanceId, userId)" +
-		"OUTPUT Inserted.reservationNumber" +
-		"select Performances.id" +
-		"from Performances, Users, Movies" +
+	private int makeReservation(String date, String movieName, String username) {
+		String sql = "insert into Reservations(performanceId, userId) " +
+		"select Performances.id as performanceId, Users.id as userId " +
+		"from Performances, Users, Movies " +
 		"where Performances.theDate = ? and Performances.movieId = Movies.id and Movies.name = ? and Users.username LIKE ?";
 		PreparedStatement ps = null;
 		try {
@@ -266,10 +268,14 @@ public class Database {
 			ps.setString(1, date);
 			ps.setString(2, movieName);
 			ps.setString(3, username);
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				String reservationNumber = rs.getString("reservationNumber");
-				return reservationNumber;
+			int n = ps.executeUpdate();
+			if(n == 1){
+				ps.close();
+				ps = conn.prepareStatement("Select LAST_INSERT_ID() from Reservations");
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					return rs.getInt(1);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -280,6 +286,6 @@ public class Database {
 				e2.printStackTrace();
 			}
 		}
-		return null;
+		return -1;
 	}
 }
