@@ -133,5 +133,35 @@ public class Database {
 	public ArrayList<String> getMovieData(String movieName, String date) {
 		return null;
 	}
+	
+	public boolean login(String inUsername){
+		
+		ArrayList<SingleObjectHolder<String>> toReturn = new ArrayList<SingleObjectHolder<String>>();
+		String sql = "select name,username, id " +
+		"from Users " +
+		"where username LIKE ?";
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, inUsername);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String username = rs.getString("username");
+				if( username.equalsIgnoreCase(inUsername)){
+					return true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps != null) ps.close();
+			} catch(SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+		return false;
+	}
 
 }

@@ -82,7 +82,12 @@ public class UserLoginPane extends BasicPane {
 		 */
 		public void actionPerformed(ActionEvent e) {
 			String userId = fields[USER_ID].getText();
-			/* --- insert own code here --- */
+			if(db.login(userId)){
+				CurrentUser.instance().loginAs(userId);
+				messageLabel.setText(String.format("Logged in as: %s", userId));
+			} else {
+				messageLabel.setText(String.format("Unable to login as: %s", userId));
+			}
 		}
 	}
 }
