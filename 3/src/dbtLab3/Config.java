@@ -10,7 +10,7 @@ import java.io.IOException;
 import com.google.gson.Gson;
 
 public class Config {
-	public static Settings config;
+	public static Settings config = new Config.Settings();
 	private static final String SETTINGS_FILE_NAME = ".eda216-lab3-settings";
 	
 	public static void reload() {
@@ -26,7 +26,7 @@ public class Config {
 		}
 	}
 	
-	public void commit(){
+	public static void commit(){
 		File settingsFile = null;
 		FileWriter fw = null;
 		BufferedWriter bw = null;
@@ -61,6 +61,8 @@ public class Config {
 	}
 	
 	public static class Settings {
-		
+		public String username;
+		public String password;
+		public String db;
 	}
 }
