@@ -3,6 +3,8 @@ package dbtLab3;
 import java.util.ArrayList;
 import java.sql.*;
 
+import datatypes.SingleObjectHolder;
+
 /**
  * Database is a class that specifies the interface to the movie database. Uses
  * JDBC and the MySQL Connector/J driver.
@@ -76,6 +78,29 @@ public class Database {
 		return conn != null;
 	}
 
-	/* --- insert own code here --- */
+	public ArrayList<SingleObjectHolder<String>> getMovies() {
+		ArrayList<SingleObjectHolder<String>> toReturn = new ArrayList<SingleObjectHolder<String>>();
+		String sql = "select id, name" +
+		"from Movies";
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				String id = rs.getString("id");
+				String name = rs.getString("name");
+				toReturn.add(new SingleObjectHolder<String>(id, name));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps != null) ps.close();
+			} catch(SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+		return toReturn;
+	}
 
 }

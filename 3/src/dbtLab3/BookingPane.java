@@ -3,6 +3,8 @@ package dbtLab3;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import datatypes.SingleObjectHolder;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -174,7 +176,10 @@ public class BookingPane extends BasicPane {
 	 */
 	private void fillNameList() {
 		nameListModel.removeAllElements();
-        /* --- insert own code here --- */
+		ArrayList<SingleObjectHolder<String>> nameList = db.getMovies();
+		for(int i = 0; i < nameList.size(); i++) {
+			nameListModel.add(i, nameList.get(i).value);
+		}
 	}
 
 	/**
