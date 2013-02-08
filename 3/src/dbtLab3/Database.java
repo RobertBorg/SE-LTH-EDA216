@@ -80,14 +80,14 @@ public class Database {
 
 	public ArrayList<SingleObjectHolder<String>> getMovies() {
 		ArrayList<SingleObjectHolder<String>> toReturn = new ArrayList<SingleObjectHolder<String>>();
-		String sql = "select id, name" +
+		String sql = "select Movies.id, Movies.name " +
 		"from Movies";
 		PreparedStatement ps = null;
 		try {
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				String id = rs.getString("id");
+				int id = rs.getInt("id");
 				String name = rs.getString("name");
 				toReturn.add(new SingleObjectHolder<String>(id, name));
 			}
