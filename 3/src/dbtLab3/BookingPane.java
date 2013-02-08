@@ -178,7 +178,7 @@ public class BookingPane extends BasicPane {
 		nameListModel.removeAllElements();
 		ArrayList<SingleObjectHolder<String>> nameList = db.getMovies();
 		for(int i = 0; i < nameList.size(); i++) {
-			nameListModel.add(i, nameList.get(i).value);
+			nameListModel.add(i, nameList.get(i).getFirstValue());
 		}
 	}
 
@@ -186,9 +186,12 @@ public class BookingPane extends BasicPane {
 	 * Fetch performance dates from the database and display them in the date
 	 * list.
 	 */
-	private void fillDateList() {
+	private void fillDateList(String movieName) {
 		dateListModel.removeAllElements();
-        /* --- insert own code here --- */
+		ArrayList<SingleObjectHolder<String>> nameList = db.getPerformanceDates(movieName);
+		for(int i = 0; i < nameList.size(); i++) {
+			dateListModel.add(i, nameList.get(i).getFirstValue());
+		}
 	}
 
 	/**
@@ -217,7 +220,7 @@ public class BookingPane extends BasicPane {
 				return;
 			}
 			String movieName = (String) nameList.getSelectedValue();
-			/* --- insert own code here --- */
+			fillDateList(movieName);
 		}
 	}
 

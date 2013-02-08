@@ -102,5 +102,36 @@ public class Database {
 		}
 		return toReturn;
 	}
+	
+	public ArrayList<SingleObjectHolder<String>> getPerformanceDates(String movieName) {
+		ArrayList<SingleObjectHolder<String>> toReturn = new ArrayList<SingleObjectHolder<String>>();
+		String sql = "select Performances.id, Performances.theDate " +
+		"from Performances, Movies " +
+		"where Movies.id = Performances.id and Movies.name = ?";
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, movieName);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String date = rs.getString("theDate");
+				toReturn.add(new SingleObjectHolder<String>(id, date));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps != null) ps.close();
+			} catch(SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+		return toReturn;
+	}
+	
+	public ArrayList<String> getMovieData(String movieName, String date) {
+		return null;
+	}
 
 }
