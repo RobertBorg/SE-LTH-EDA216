@@ -16,3 +16,6 @@ sftp-config*.json
 .Spotlight-V100
 .Trashes
 
+#Eclipse
+bin/
+*.class
