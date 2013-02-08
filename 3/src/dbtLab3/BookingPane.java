@@ -242,7 +242,10 @@ public class BookingPane extends BasicPane {
 			}
 			String movieName = (String) nameList.getSelectedValue();
 			String date = (String) dateList.getSelectedValue();
-			/* --- insert own code here --- */
+			ArrayList<SingleObjectHolder<String>> movieData = db.getMovieData(movieName, date);
+			for(int i = 0; i < NBR_FIELDS; i++) {
+				fields[i].setText(movieData.get(0).values.get(i));
+			}
 		}
 	}
 

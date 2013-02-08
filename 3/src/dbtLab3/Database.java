@@ -130,8 +130,34 @@ public class Database {
 		return toReturn;
 	}
 	
-	public ArrayList<String> getMovieData(String movieName, String date) {
-		return null;
+	public ArrayList<SingleObjectHolder<String>> getMovieData(String movieName, String date) {
+		ArrayList<SingleObjectHolder<String>> toReturn = new ArrayList<SingleObjectHolder<String>>();
+		String sql = "select Performances.id, Movies.name, Performances.theDate, Theaters.name, Theaters.numberOfSeats " +
+		"from Performances, Movies, Theaters " +
+		"where Movies.id = Performances.id and Movies.name = ? and Theaters.id = Performances.id and Performances.theDate = ?";
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, movieName);
+			ps.setString(2, date);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				int id = rs.getInt("Performances.id");
+				String otherDate = rs.getString("Performances.theDate");
+				String otherMovieName = rs.getString("Movies.name");
+				String otherTheater = rs.getString("Theaters.name");
+				String otherFreeSeats = rs.getString("Theaters.numberOfSeats");
+				toReturn.add(new SingleObjectHolder<String>(id, otherMovieName, otherDate, otherTheater, otherFreeSeats));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps != null) ps.close();
+			} catch(SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+		return toReturn;
 	}
-
 }
