@@ -30,6 +30,8 @@ public class MovieGUI {
 	 */
 	public MovieGUI(Database db) {
 		this.db = db;
+		Config.reload();
+		Config.Settings settings = Config.config; 
 
 		JFrame frame = new JFrame("MovieBooking");
 		tabbedPane = new JTabbedPane();
@@ -55,7 +57,7 @@ public class MovieGUI {
 		
 		/* --- change code here --- */
 		/* --- change xxx to your user name, yyy to your password --- */
-		if (db.openConnection("xxx", "xxx")) {
+		if (db.openConnection(settings.username, settings.password)) {
 			userLoginPane.displayMessage("Connected to database");
 		} else {
 			userLoginPane.displayMessage("Could not connect to database");
