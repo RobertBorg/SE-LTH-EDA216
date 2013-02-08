@@ -135,9 +135,7 @@ public class Database {
 	}
 	
 	public boolean login(String inUsername){
-		
-		ArrayList<SingleObjectHolder<String>> toReturn = new ArrayList<SingleObjectHolder<String>>();
-		String sql = "select name,username, id " +
+		String sql = "select username " +
 		"from Users " +
 		"where username LIKE ?";
 		PreparedStatement ps = null;
@@ -146,7 +144,6 @@ public class Database {
 			ps.setString(1, inUsername);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				int id = rs.getInt("id");
 				String username = rs.getString("username");
 				if( username.equalsIgnoreCase(inUsername)){
 					return true;
@@ -162,6 +159,35 @@ public class Database {
 			}
 		}
 		return false;
+	}
+	
+	public String makeReservation(String date, String movieName, String username) {
+		String sql = "insert into Reservations(performanceId, userId)" +
+		"OUTPUT Inserted.reservationNumber" +
+		"select Performances.id" +
+		"from Performances, Users, Movies" +
+		"where Performances.theDate = ? and Performances.movieId = Movies.id and Movies.name = ? and Users.username LIKE ?;";
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, date);
+			ps.setString(2, movieName);
+			ps.setString(3, username);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				String reservationNumber = rs.getString("reservationNumber");
+				return reservationNumber;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps != null) ps.close();
+			} catch(SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 }
