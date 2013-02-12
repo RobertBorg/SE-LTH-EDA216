@@ -58,7 +58,7 @@ userId int NOT NULL,
 FOREIGN KEY(performanceId)
   REFERENCES Performances(id),
 FOREIGN KEY(userId)
-  REFERENCES Users(id)
+  REFERENCES Users(id),
 CONSTRAINT oncePerPerformance UNIQUE (performanceId,userId)
 );
 
