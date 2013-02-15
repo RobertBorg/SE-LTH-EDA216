@@ -126,7 +126,7 @@ class Database {
 		$result = $this->executeQuery($sql);
 		$ret = array();
 		while ($row = $result->fetchRow()) {
-			$ret[row[0]] = $row[1];
+			array_push($ret, array("id" => row[0], "name" => $row[1]);
 		}
 		$results->free();
 		return $ret;		
