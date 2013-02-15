@@ -126,7 +126,7 @@ class Database {
 		$result = $this->executeQuery($sql);
 		$ret = array();
 		while ($row = $result->fetchRow()) {
-			array_push($ret, array("id" => row[0], "name" => $row[1]);
+			array_push($ret, array("id" => row[0], "name" => $row[1]));
 		}
 		$results->free();
 		return $ret;		
@@ -143,7 +143,7 @@ class Database {
 		$result = $stmt->execute(array($movieId));
 		$ret = array();
 		while ($row = $result->fetchRow()) {
-			$ret[row[0]] = $row[1];
+			array_push($ret, array("id" = [row[0], "date" = $row[1]));
 		}
 		$results->free();
 		return $ret;
@@ -156,7 +156,7 @@ class Database {
 		$result = $stmt->execute(array($performanceId));
 		$ret = array();
 		while ($row = $result->fetchRow()) {
-			$ret[row[0]] = array(row[1], row[2], row[3], row[4]);
+			array_push($ret, array("id" = [row[0], "movieName" = row[1], "date" = row[2], "theaterName" = row[3], "numberOfSeats" = row[4]));
 		}
 		$results->free();
 		return $ret;
