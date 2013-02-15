@@ -115,7 +115,51 @@ class Database {
 	}
 	
 	/*
-	 * *** Add functions ***
+	 * Get the names of Movies that are currently showing. 
+	 * Returns an array with the movieId as key and name as value
+	 * Example: ret[123] = "King Kong"
 	 */
+	public function getMovies() {
+		$sql = "select Movies.id, Movies.name " +
+		"from Movies, Percormances " +
+		"where Performances.movieId = Movies.id";
+		$result = $this->executeQuery($sql);
+		$ret = array();
+		while ($row = $result->fetchRow()) {
+			$ret[row[0]] = $row[1];
+		}
+		$results->free();
+		return $ret;		
+	}
+
+	/*
+	* Get the performance dates for the defined movie ID.
+	* Returns an array with the performance ID as key and date as value.
+	*/
+	public function getPerformanceDates($movieId) {	
+		$stmt = $conn->prepare("select Performances.id, Performances.theDate " +
+		"from Performances, Movies " +
+		"where Movies.id = Performances.id and Movies.id = ?");
+		$result = $stmt->execute(array($movieId));
+		$ret = array();
+		while ($row = $result->fetchRow()) {
+			$ret[row[0]] = $row[1];
+		}
+		$results->free();
+		return $ret;
+	}
+
+	public function getMovieData($performanceId) {
+		$stmt = $conn->prepare("select Performances.id, Movies.name, Performances.theDate, Theaters.name, Theaters.numberOfSeats " +
+		"from Performances, Movies, Theaters " +
+		"where Movies.id = Performances.id and Theaters.id = Performances.theaterId and Performances.id = ?");
+		$result = $stmt->execute(array($performanceId));
+		$ret = array();
+		while ($row = $result->fetchRow()) {
+			$ret[row[0]] = array(row[1], row[2], row[3], row[4]);
+		}
+		$results->free();
+		return $ret;
+	}
 }
 ?>
