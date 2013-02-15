@@ -13,26 +13,16 @@
 <html>
 <head><title>Booking 1</title><head>
 <body><h1>Booking 1</h1>
-	Current user: <?php print $userId ?>
+	<p>Current user: <?php print $userId ?></p>
 	<p>
-	Movies showing:
-	<p>
-	<form method=post action="booking2.php">
-		<select name="movieName" size=10>
-		<?php
-			$first = true;
-			foreach ($movieNames as $name) {
-				if ($first) {
-					print "<option selected>";
-					$first = false;
-				} else {
-					print "<option>";
+		Movies showing:
+		<ul>
+			<?php
+				foreach ($movies as $movie) {
+					print <li><a href="booking2.php?movieId=$movie['id']" >$movie['name']</a></li>\n;
 				}
-				print $name;
-			}
-		?>
-		</select>		
-		<input type=submit value="Select movie">
-	</form>
+			?>
+		</ul>
+	</p>
 </body>
 </html>
