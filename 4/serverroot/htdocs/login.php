@@ -1,6 +1,6 @@
 <?php
 	require_once('database.inc.php');
-	require_once("mysql_connect_data.inc.php");
+	require_once("./../mysql_connect_data.inc.php");
 	
 	$db = new Database($userName, $password, $database);
 	$db->openConnection();
