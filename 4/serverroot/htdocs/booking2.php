@@ -7,7 +7,8 @@
 	$movieId = $_SESSION['movieId'] = $_GET['movieId'];
 
 	$db->openConnection();
-	$performances = $db->
+	$performances = $db->getPerformancesForMovie($movieId);
+	$movieName = $db->getMovieNameForMovie($movieId);
 	$db->closeConnection();
 ?>
 
