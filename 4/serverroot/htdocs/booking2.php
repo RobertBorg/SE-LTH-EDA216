@@ -13,8 +13,8 @@
 ?>
 
 <html>
-<head><title>Booking 1</title><head>
-<body><h1>Booking 1</h1>
+<head><title>Booking 2</title><head>
+<body><h1>Booking 2</h1>
 	<p>Current user: <?php print $userId ?></p>
 	<p>Selected Movie: <?php $movieName ?></p>
 	<p>
