@@ -14,7 +14,7 @@ class Database {
 	private $userName;
 	private $password;
 	private $database;
-	private $conn;
+	protected $conn;
 	
 	/**
 	 * Constructs a database object for the specified user.
@@ -82,6 +82,7 @@ class Database {
 		return $result;
 	}
 	
+
 	/**
 	 * Check if a user with the specified user id exists in the database.
 	 * Queries the Users database table.
@@ -120,7 +121,7 @@ class Database {
 	* Returns an array with the performance ID as key and date as value.
 	*/
 	public function getPerformancesForMovie($movieId) {	
-		$stmt = $conn->prepare("select Performances.id, Performances.theDate " .
+		$stmt = $this->conn->prepare("select Performances.id, Performances.theDate " .
 		"from Performances, Movies " .
 		"where Movies.id = Performances.id and Movies.id = ?");
 		$result = $stmt->execute(array($movieId));
@@ -128,33 +129,33 @@ class Database {
 		while ($row = $result->fetchRow()) {
 			array_push($ret, array("id" => $row[0], "date" => $row[1] ) );
 		}
-		$results->free();
+		$result->free();
 		return $ret;
 	}
 
 	public function getMovieNameForMovie($movieId) {
-		$stmt = $conn->prepare("select Movies.name " +
-		"from Movies " +
+		$stmt = $this->conn->prepare("select Movies.name " .
+		"from Movies " .
 		"where Movies.id = ?");
 		$result = $stmt->execute(array($movieId));
 		$movieName = "";
 		while ($row = $result->fetchRow()) {
 			$movieName = $row[0];
 		}
-		$results->free();
+		$result->free();
 		return $movieName;
 	}
 
-	public function getMovieData($performanceId) {
-		$stmt = $conn->prepare("select Performances.id, Movies.name, Performances.theDate, Theaters.name, Theaters.numberOfSeats " +
-		"from Performances, Movies, Theaters " +
+	public function getPerformanceData($performanceId) {
+		$stmt = $this->conn->prepare("select Performances.id, Movies.name, Performances.theDate, Theaters.name, Theaters.numberOfSeats " .
+		"from Performances, Movies, Theaters " .
 		"where Movies.id = Performances.id and Theaters.id = Performances.theaterId and Performances.id = ?");
 		$result = $stmt->execute(array($performanceId));
 		$ret = array();
 		while ($row = $result->fetchRow()) {
-			array_push($ret, array("id" => $row[0], "movieName" => $row[1], "date" => $row[2], "theaterName" => $row[3], "numberOfSeats" => $row[4] ) );
+			$ret = array("id" => $row[0], "movieName" => $row[1], "date" => $row[2], "theaterName" => $row[3], "numberOfSeats" => $row[4] );
 		}
-		$results->free();
+		$result->free();
 		return $ret;
 	}
 }
