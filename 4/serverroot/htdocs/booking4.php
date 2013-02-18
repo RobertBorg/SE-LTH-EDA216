@@ -5,7 +5,7 @@
 	$db = $_SESSION['db'];
 	$userId = $_SESSION['userId'];
 	$performanceId = $_SESSION['bookPerformanceId'] = $_POST['performanceId'];
-e
+
 	$db->openConnection();
 	$booking = $db->tryMakeBooking($performanceId);
 	$db->closeConnection();
@@ -18,9 +18,9 @@ e
 	<p>
 		<?php 
 		if($booking == null) {
-			print unable to book ticket
+			print "unable to book ticket"
 		} else {
-			print one ticked booked. Booking id: $booking
+			print "one ticked booked. Booking id: $booking"
 		}
 		?>
 	</p>
