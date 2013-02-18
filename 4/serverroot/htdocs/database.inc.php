@@ -153,21 +153,23 @@ class Database {
 		$result = $stmt->execute(array($performanceId));
 		$ret = array();
 		while ($row = $result->fetchRow()) {
-			$ret = array("id" => $row[0], "movieName" => $row[1], "date" => $row[2], "theaterName" => $row[3], "numberOfSeats" => getNumberOfAvailableSeats($row[0], $row[2]) );
+			$numAvailable= $this->getNumberOfAvailableSeats($row[1], $row[2]);
+			$ret = array("id" => $row[0], "movieName" => $row[1], "date" => $row[2], "theaterName" => $row[3], "numberOfSeats" => $numAvailable );
 		}
 		$result->free();
 		return $ret;
 	}
 
-	public function getNumberOfAvailableSeats($movieNam, $date) {
-		$stmt = $this->conn->prepare("select " .
+	public function getNumberOfAvailableSeats($movieName, $date) {
+		$sql =  "select " .
 				"(Select numberofseats " .
 				"from theaters, performances,movies " .
 				"where theaters.id = performances.theaterId and performances.movieId = movies.id and performances.thedate = ? and movies.name like ?)" .
 				"-" .
 				"(Select count(reservationNumber) as numReserved " .
 				"from Movies,Performances,Reservations " .
-				"where Reservations.performanceId = Performances.id and Performances.movieId = Movies.id and Performances.thedate = ? and Movies.name LIKE ?)");
+				"where Reservations.performanceId = Performances.id and Performances.movieId = Movies.id and Performances.thedate = ? and Movies.name LIKE ?)";
+		$stmt = $this->conn->prepare($sql);
 		$result = $stmt->execute(array($date, $movieName, $date, $movieName));
 		$toReturn = -1;
 		while($row = $result->fetchRow()) {
