@@ -8,6 +8,7 @@
 
 	$db->openConnection();
 	$performance = $db->getPerformanceData($performanceId);
+	print_r($performance);
 	$db->closeConnection();
 ?>
 
