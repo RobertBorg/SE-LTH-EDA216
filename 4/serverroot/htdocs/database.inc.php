@@ -177,5 +177,58 @@ class Database {
 		$result->free();
 		return $toReturn;
 	}
+
+	public function getNumberOfAvailableSeats($performanceId) {
+		$stmt = $this->conn->prepare("select " .
+			"(select numberOfSeats " .
+			"from Theaters, Performances " .
+			"where Theaters.id = Performances.theaterId and Performances.id = ?) " .
+			"-" .
+			"(select count(reservationNumber) " .
+			"where Performances.id = Reservations.performanceId and Performances.id = ?)");
+		$result = $stmt->execute(array($performanceId, $performanceId));
+		$toReturn = -1;
+		while($row = $result->fetchRow()) {
+			$toReturn = $row[0];
+			break;
+		}
+		$result->free();
+		return $toReturn;
+	}
+
+
+	public function tryMakeReservation($performanceId) {
+		$conn->autocommit(false);
+		if(getNumberOfAvailableSeats($performanceId) > 0) {
+			$rNum = makeReservation($performanceId);
+			if($rNum >= 0) {
+				$conn->commit();
+				return $rNum;
+			} else {
+				$conn->rollback();
+			}
+		}
+
+		$conn->autocommit(true);
+	}
+
+	public function makeReservation($performanceId) {
+		$toReturn = -1;
+		$stmt = $this->conn->prepare("insert into Reservations (performanceId, userId) " .
+		"values (?, ?)");
+		$stmt->bindParam(1, $performanceId);
+		$stmt->bindParam(2, $this->userName);
+		$n = $stmt->execute();
+		if($n && $stmt->mysqli_stmt_affected_rows() == 1) {
+			$stmt = $this->conn->prepare("Select LAST_INSERT_ID() from Reservations");
+			$result = $stmt->execute();
+			while($row = $result->fetchRow()) {
+				$toReturn = $row[0];
+				break;
+			}
+			$result->free();
+		}
+		return $toReturn;
+	}
 }
 ?>
