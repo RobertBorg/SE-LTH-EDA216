@@ -18,9 +18,9 @@
 	<p>
 		<?php 
 		if($booking == null) {
-			print "unable to book ticket"
+			print "unable to book ticket";
 		} else {
-			print "one ticked booked. Booking id: $booking"
+			print "one ticked booked. Booking id: $booking";
 		}
 		?>
 	</p>
