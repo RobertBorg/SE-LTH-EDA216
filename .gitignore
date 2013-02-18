@@ -22,3 +22,9 @@ bin/
 
 #lab3
 .eda216-lab3-settings
+
+#no committing passwords
+mysql_connect_data.inc.php
+
+#logs
+logs/

@@ -22,7 +22,7 @@
 		<ul>
 			<?php
 				foreach ($performances as $performance) {
-					print <li><a href="booking3.php?performanceId=$performance['id']" >$performance['date']</a></li>\n;
+					print "<li><a href=\"booking3.php?performanceId=$performance[id]\" >$performance[date]</a></li>\n";
 				}
 			?>
 		</ul>

@@ -90,28 +90,11 @@ class Database {
 	 * @return true if the user exists, false otherwise.
 	 */
 	public function userExists($userId) {
-		$sql = "select userId from Users where userId = '$userId'";
+		$sql = "select username from Users where username = '$userId'";
 		$result = $this->executeQuery($sql);
 		$ret = $result->numRows() == 1; 
 		$result->free();
 		return $ret; 
-	}
-
-	/** 
-	 * Get the names of movies that are currently showing. Queries
-	 * the Performances database table.
-	 *
-	 * @return The array of movie names.
-	 */
-	public function getMovieNames() {
-		$sql = "select distinct movieName from Performances"; 
-		$result = $this->executeQuery($sql);
-		$ret = array();
-		while ($row = $result->fetchRow()) {
-			$ret[] = $row[0];
-		}
-		$result->free();
-		return $ret;
 	}
 	
 	/*
@@ -120,15 +103,15 @@ class Database {
 	 * Example: ret[123] = "King Kong"
 	 */
 	public function getMovies() {
-		$sql = "select Movies.id, Movies.name " +
-		"from Movies, Percormances " +
-		"where Performances.movieId = Movies.id";
+		$sql = "select Movies.id, Movies.name " .
+		"from Movies, Performances " .
+		"where Performances.movieId = Movies.id ";
 		$result = $this->executeQuery($sql);
 		$ret = array();
 		while ($row = $result->fetchRow()) {
-			array_push($ret, array("id" => row[0], "name" => $row[1]));
+			array_push($ret, array("id" => $row[0], "name" => $row[1] ) );
 		}
-		$results->free();
+		$result->free();
 		return $ret;		
 	}
 
@@ -136,17 +119,30 @@ class Database {
 	* Get the performance dates for the defined movie ID.
 	* Returns an array with the performance ID as key and date as value.
 	*/
-	public function getPerformanceDates($movieId) {	
-		$stmt = $conn->prepare("select Performances.id, Performances.theDate " +
-		"from Performances, Movies " +
+	public function getPerformancesForMovie($movieId) {	
+		$stmt = $conn->prepare("select Performances.id, Performances.theDate " .
+		"from Performances, Movies " .
 		"where Movies.id = Performances.id and Movies.id = ?");
 		$result = $stmt->execute(array($movieId));
 		$ret = array();
 		while ($row = $result->fetchRow()) {
-			array_push($ret, array("id" = [row[0], "date" = $row[1]));
+			array_push($ret, array("id" => $row[0], "date" => $row[1] ) );
 		}
 		$results->free();
 		return $ret;
+	}
+
+	public function getMovieNameForMovie($movieId) {
+		$stmt = $conn->prepare("select Movies.name " +
+		"from Movies " +
+		"where Movies.id = ?");
+		$result = $stmt->execute(array($movieId));
+		$movieName = "";
+		while ($row = $result->fetchRow()) {
+			$movieName = $row[0];
+		}
+		$results->free();
+		return $movieName;
 	}
 
 	public function getMovieData($performanceId) {
@@ -156,7 +152,7 @@ class Database {
 		$result = $stmt->execute(array($performanceId));
 		$ret = array();
 		while ($row = $result->fetchRow()) {
-			array_push($ret, array("id" = [row[0], "movieName" = row[1], "date" = row[2], "theaterName" = row[3], "numberOfSeats" = row[4]));
+			array_push($ret, array("id" => $row[0], "movieName" => $row[1], "date" => $row[2], "theaterName" => $row[3], "numberOfSeats" => $row[4] ) );
 		}
 		$results->free();
 		return $ret;
