@@ -1,0 +1,12 @@
+//http://yuml.me/diagram/scruffy/class/draw
+[RawMaterials|name],
+[Ingredients|quantity],
+[Recipes|name],
+[Pallets|id;creationdate],
+[Orders|id;shipmentdate],
+[Customers|name;address],
+[RawMaterials]1..*[Ingredients],
+[Recipes]1..*[Ingredients],
+[Recipes]1..*[Pallets],
+[Pallets]*..1[Orders],
+[Orders]*..1[Customers]
