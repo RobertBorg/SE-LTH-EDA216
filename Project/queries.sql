@@ -45,7 +45,7 @@ CONSTRAINT uniqueNames UNIQUE (rawMaterialName,recipeName)
 create table Pallets (
 id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
 orderId int,
-dateAndTime datetime NOT NULL,
+creationDateAndTime datetime NOT NULL,
 recipeName char(100) NOT NULL,
 shipmentId int,
 FOREIGN KEY (orderId)
@@ -58,7 +58,7 @@ FOREIGN KEY (shipmentId)
 
 create table Orders (
 id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-deliveryDate date NOT NULL,
+requestedDeliveryDate date NOT NULL,
 customerName char(100) NOT NULL,
 FOREIGN KEY (customerName)
   REFERENCES Customers(name)

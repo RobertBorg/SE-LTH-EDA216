@@ -3,7 +3,7 @@
 [Ingredients|quantity],
 [Recipes|name],
 [Pallets|id;creationDateAndTime],
-[Orders|id;deliveryDate],
+[Orders|id;requestedDeliveryDate],
 [Customers|name;address],
 [Shipments|id],
 [RawMaterials]1-0...*[Ingredients],
