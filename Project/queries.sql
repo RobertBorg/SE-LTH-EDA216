@@ -42,19 +42,25 @@ CONSTRAINT uniqueNames UNIQUE (rawMaterialName,recipeName)
 
 create table Pallets (
 id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+orderId int,
 dateAndTime datetime NOT NULL,
-recipeName char(20) NOT NULL
+recipeName char(20) NOT NULL,
+FOREIGN KEY (orderId)
+  REFERENCES Orders(id),
+FOREIGN KEY (recipeName)
+  REFERENCES Recipes(name)
 );
 
 create table Orders (
-if int PRIMARY KEY NOT NULL AUTP_INCREMENT,
-shipmentDate date NOT NULL,
+id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+deliveryDate date NOT NULL,
 customerName char(20) NOT NULL,
-palletId int NOT NULL
+FOREIGN KEY (customerName)
+  REFEENCES Customers(name)
 );
 
 create table Customers (
-name char(20) PRIMARY KEY NOT NULL,
+name char(20) PRIMARY KEY NOT NULL UNIQUE,
 address char(50) NOT NULL
 );
 
