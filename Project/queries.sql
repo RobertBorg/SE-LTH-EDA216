@@ -40,6 +40,24 @@ FOREIGN KEY(recipeName)
 CONSTRAINT uniqueNames UNIQUE (rawMaterialName,recipeName)
 );
 
+create table Pallets (
+id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+dateAndTime datetime NOT NULL,
+recipeName char(20) NOT NULL
+);
+
+create table Orders (
+if int PRIMARY KEY NOT NULL AUTP_INCREMENT,
+shipmentDate date NOT NULL,
+customerName char(20) NOT NULL,
+palletId int NOT NULL
+);
+
+create table Customers (
+name char(20) PRIMARY KEY NOT NULL,
+address char(50) NOT NULL
+);
+
 SET foreign_key_checks = 1;
 
 -- Insert data into the tables.
