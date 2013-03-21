@@ -1,4 +1,4 @@
--- Delete the tables if they exist. Set foreign_key_checks = 0 to
+-- Delete theg tables if they exist. Set foreign_key_checks = 0 to
 -- disable foreign key checks, so the tables may be dropped in
 -- arbitrary order.
 
@@ -22,17 +22,17 @@ DROP TABLE IF EXISTS Ingredients;
 
 -- Create the tables.
 create table RawMaterials (
-name char(20) PRIMARY KEY NOT NULL
+name char(40) PRIMARY KEY NOT NULL
 );
 
 create table Recipes (
-name char(20) PRIMARY KEY NOT NULL
+name char(100) PRIMARY KEY NOT NULL
 );
 
 create table Ingredients (
 quantity int NOT NULL,
-rawMaterialName char(20) NOT NULL,
-recipeName char(20) NOT NULL,
+rawMaterialName char(40) NOT NULL,
+recipeName char(100) NOT NULL,
 FOREIGN KEY(rawMaterialName)
   REFERENCES RawMaterials(name),
 FOREIGN KEY(recipeName)
@@ -44,7 +44,7 @@ create table Pallets (
 id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
 orderId int,
 dateAndTime datetime NOT NULL,
-recipeName char(20) NOT NULL,
+recipeName char(100) NOT NULL,
 FOREIGN KEY (orderId)
   REFERENCES Orders(id),
 FOREIGN KEY (recipeName)
@@ -54,14 +54,14 @@ FOREIGN KEY (recipeName)
 create table Orders (
 id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
 deliveryDate date NOT NULL,
-customerName char(20) NOT NULL,
+customerName char(100) NOT NULL,
 FOREIGN KEY (customerName)
   REFEENCES Customers(name)
 );
 
 create table Customers (
-name char(20) PRIMARY KEY NOT NULL UNIQUE,
-address char(50) NOT NULL
+name char(100) PRIMARY KEY NOT NULL UNIQUE,
+address char(100) NOT NULL
 );
 
 SET foreign_key_checks = 1;
