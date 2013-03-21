@@ -20,6 +20,8 @@ DROP TABLE IF EXISTS Customers;
 
 DROP TABLE IF EXISTS Ingredients;
 
+DROP TABLE IF EXISTS Shipments;
+
 -- Create the tables.
 create table RawMaterials (
 name char(40) PRIMARY KEY NOT NULL
@@ -45,10 +47,13 @@ id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
 orderId int,
 dateAndTime datetime NOT NULL,
 recipeName char(100) NOT NULL,
+shipmentId int,
 FOREIGN KEY (orderId)
   REFERENCES Orders(id),
 FOREIGN KEY (recipeName)
-  REFERENCES Recipes(name)
+  REFERENCES Recipes(name),
+FOREIGN KEY (shipmentId)
+  REFERENCES Shipments(id)
 );
 
 create table Orders (
@@ -62,6 +67,10 @@ FOREIGN KEY (customerName)
 create table Customers (
 name char(100) PRIMARY KEY NOT NULL UNIQUE,
 address char(100) NOT NULL
+);
+
+create table Shipments (
+id int PRIMARY KEY NOT NULL AUTO_INCREMENT
 );
 
 SET foreign_key_checks = 1;
