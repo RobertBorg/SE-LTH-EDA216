@@ -6,7 +6,7 @@
 	$userId = $_SESSION['userId'];
 	$db->openConnection();
 	
-	$movieNames = $db->getMovieNames();
+	$movies = $db->getMovies();
 	$db->closeConnection();
 ?>
 
@@ -19,7 +19,7 @@
 		<ul>
 			<?php
 				foreach ($movies as $movie) {
-					print <li><a href="booking2.php?movieId=$movie['id']" >$movie['name']</a></li>\n;
+					print "<li><a href=\"booking2.php?movieId=$movie[id]\" >$movie[name]</a></li>";
 				}
 			?>
 		</ul>

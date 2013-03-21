@@ -5,9 +5,10 @@
 	$db = $_SESSION['db'];
 	$userId = $_SESSION['userId'];
 	$performanceId = $_SESSION['performanceId'] = $_GET['performanceId'];
-e
+
 	$db->openConnection();
-	$performance = $db->getPerformance($performanceId);
+	$performance = $db->getPerformanceData($performanceId);
+	print_r($performance);
 	$db->closeConnection();
 ?>
 
@@ -21,7 +22,7 @@ e
 			<li>Movie: <?php print $performance['movieName'] ?></li>
 			<li>Date: <?php print $performance['date'] ?></li>
 			<li>Theater: <?php print $performance['theaterName'] ?></li>
-			<li>Free seats: <?php print $perforamnce['availableSeats'] ?></li>
+			<li>Free seats: <?php print $performance['numberOfSeats'] ?></li>
 		</ul>
 	</p>
 	<p>
