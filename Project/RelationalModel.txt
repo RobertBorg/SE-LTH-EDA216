@@ -1,0 +1,7 @@
+RawMaterials(_name_)
+Ingredients(quantity, _rawMaterialName_, _recipeName_)
+Recipes(_name_)
+Pallets(_id_, _orderId_, _recipeName_, _shipmentId_, dateAndTime)
+Orders(_id_, _customerName_, deliverydate)
+Customers(_name_, address)
+Shipments(_id_)
