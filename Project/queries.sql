@@ -56,7 +56,7 @@ id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
 deliveryDate date NOT NULL,
 customerName char(100) NOT NULL,
 FOREIGN KEY (customerName)
-  REFEENCES Customers(name)
+  REFERENCES Customers(name)
 );
 
 create table Customers (
