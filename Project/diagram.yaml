@@ -2,7 +2,7 @@
 [RawMaterials|name],
 [Ingredients|quantity],
 [Recipes|name],
-[Pallets|id;creationdate],
+[Pallets|id;creationdate;creationtime],
 [Orders|id;shipmentdate],
 [Customers|name;address],
 [RawMaterials]1..*[Ingredients],
