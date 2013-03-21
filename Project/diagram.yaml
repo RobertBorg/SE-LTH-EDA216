@@ -5,8 +5,8 @@
 [Pallets|id;creationdate;creationtime],
 [Orders|id;shipmentdate],
 [Customers|name;address],
-[RawMaterials]1..*[Ingredients],
-[Recipes]1..*[Ingredients],
-[Recipes]1..*[Pallets],
-[Pallets]*..1[Orders],
-[Orders]*..1[Customers]
+[RawMaterials]1-0...*[Ingredients],
+[Recipes]1-0...*[Ingredients],
+[Recipes]1-0...*[Pallets],
+[Pallets]*...1-1[Orders],
+[Orders]*...0-1[Customers]
