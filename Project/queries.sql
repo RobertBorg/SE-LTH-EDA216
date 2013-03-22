@@ -8,15 +8,11 @@ DROP TABLE IF EXISTS RawMaterials;
 
 DROP TABLE IF EXISTS Recipes;
 
-
 DROP TABLE IF EXISTS Pallets;
-
 
 DROP TABLE IF EXISTS Orders;
 
-
 DROP TABLE IF EXISTS Customers;
-
 
 DROP TABLE IF EXISTS Ingredients;
 
@@ -24,11 +20,11 @@ DROP TABLE IF EXISTS Shipments;
 
 -- Create the tables.
 create table RawMaterials (
-name char(40) PRIMARY KEY NOT NULL
+name char(40) PRIMARY KEY
 );
 
 create table Recipes (
-name char(100) PRIMARY KEY NOT NULL
+name char(100) PRIMARY KEY
 );
 
 create table Ingredients (
@@ -43,7 +39,7 @@ CONSTRAINT uniqueNames UNIQUE (rawMaterialName,recipeName)
 );
 
 create table Pallets (
-id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+id int PRIMARY KEY AUTO_INCREMENT,
 orderId int,
 creationDateAndTime datetime NOT NULL,
 recipeName char(100) NOT NULL,
@@ -57,7 +53,7 @@ FOREIGN KEY (shipmentId)
 );
 
 create table Orders (
-id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+id int PRIMARY KEY AUTO_INCREMENT,
 requestedDeliveryDate date NOT NULL,
 customerName char(100) NOT NULL,
 FOREIGN KEY (customerName)
@@ -65,12 +61,12 @@ FOREIGN KEY (customerName)
 );
 
 create table Customers (
-name char(100) PRIMARY KEY NOT NULL UNIQUE,
+name char(100) PRIMARY KEY UNIQUE,
 address char(100) NOT NULL
 );
 
 create table Shipments (
-id int PRIMARY KEY NOT NULL AUTO_INCREMENT
+id int PRIMARY KEY AUTO_INCREMENT
 );
 
 SET foreign_key_checks = 1;
