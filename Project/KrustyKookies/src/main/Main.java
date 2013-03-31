@@ -8,6 +8,7 @@ public class Main {
 	public static void main(String[] args) {
 		Model model = new Model();
 		KrustyView view = new KrustyView();
+		@SuppressWarnings("unused")
 		Controller controller = new Controller(model, view);
 	}
 }
