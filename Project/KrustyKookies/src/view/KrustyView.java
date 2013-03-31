@@ -23,6 +23,10 @@ public class KrustyView extends JFrame {
 	private String[] searchDescription = { "Search for pallet", "Block pallets", "Search quantity" };
 	private JComboBox<String> searchCombo = new JComboBox<String>();
 	
+	public static final int SEARCH_FOR_PALLET = 0;
+	public static final int BLOCK_PALLET = 1;
+	public static final int SEARCH_QUANTITY = 2;
+	
 	
 	public KrustyView() {
 		JFrame content = new JFrame();
@@ -84,5 +88,9 @@ public class KrustyView extends JFrame {
 	public void addComboBoxActionListener(ActionListener actionListener) {
 		searchCombo.addActionListener(actionListener);	  
 		//http://www.java2s.com/Code/Java/Swing-JFC/Usingdropdownlists.htm
+	}
+	
+	public int getSelectedAction() {
+		return searchCombo.getSelectedIndex();
 	}
 }
