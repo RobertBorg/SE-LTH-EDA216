@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.util.Calendar;
 import view.KrustyView;
 import model.Model;
+import model.Pallet;
 
 public class Controller {
 
@@ -83,13 +84,13 @@ public class Controller {
 				int selectedAction = view.getSelectedAction();
 				switch (selectedAction) {
 				case KrustyView.SEARCH_FOR_PALLET:
-					String result = model.searchForPallet(searchText);
-					view.updateSearchBox(result);
+					Pallet result = model.searchForPallet(searchText);
+					view.updateSearchBox("Pallet with id: " + Integer.toString(result.id) + " found");
 					break;
 				case KrustyView.BLOCK_PALLET:
 					boolean dateResult = validateDates();
 					if (dateResult) {
-						String blockResult = model.blockPallet(searchText,
+						String blockResult = model.blockPallets(searchText,
 								formatDate(view.getFromDate()),
 								formatDate(view.getToDate())) ? searchText
 								+ " was blocked succesfully"
@@ -100,10 +101,10 @@ public class Controller {
 				case KrustyView.SEARCH_QUANTITY:
 					boolean searchDateResult = validateDates();
 					if (searchDateResult) {
-						String quantityResult = model.checkQuantity(searchText,
+						int quantityResult = model.checkQuantity(searchText,
 								formatDate(view.getFromDate()),
 								formatDate(view.getToDate()));
-						view.updateSearchBox(quantityResult);
+						view.updateSearchBox("Amount of pallets: " + Integer.toString(quantityResult));
 					}
 					break;
 				}

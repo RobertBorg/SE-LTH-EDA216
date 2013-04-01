@@ -63,7 +63,7 @@ public class ProductionController {
 			switch (currentStageInProduction) {
 			case PRODUCTION :
 				currentProductionOrder = orders.get(currentProductionOrderNumber);			
-				updateRawMaterialQuantities(currentProductionOrder.recipe);
+//				updateRawMaterialQuantities(currentProductionOrder.recipe);
 				message += currentProductionOrder.recipe.name + " in production";
 				currentStageInProduction++;
 				break;
@@ -94,9 +94,9 @@ public class ProductionController {
 				if(!model.isEnoughRawMaterials(i)) {
 					int newQuantity = 100000;
 					model.updateQuantity(i.rawMaterial, newQuantity);
-//					Calendar cal = Calendar.getInstance();
+					Calendar cal = Calendar.getInstance();
 					//XXX: The row below makes the application freeze, any ideas why?
-//					view.insertToProductionBox(sdf.format(cal.getTime()) + " - " + i.rawMaterial.name + " quantity restored to " + newQuantity + " units");
+					view.insertToProductionBox(sdf.format(cal.getTime()) + " - " + i.rawMaterial.name + " quantity restored to " + newQuantity + " units");
 				}
 			}
 		}

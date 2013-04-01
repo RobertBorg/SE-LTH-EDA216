@@ -22,25 +22,44 @@ public class Model {
 	 * The assignment doesn't specify how we search, so do what suits you (Do
 	 * you want to include dates in this search?)
 	 * 
-	 * @param input
+	 * @param palletId
 	 * @return a string containing a nice description of the result (preferably
 	 *         formatted in a nice way)
 	 */
-	public String searchForPallet(String input) {
-		return input.trim() + " found!";
+	public Pallet searchForPallet(String palletId) {
+		return new Pallet(dummyId, new Date(Calendar.getInstance().getTimeInMillis()));
+	}
+	
+	public ArrayList<Pallet> searchForPallet(Date fromDate, Date toDate) {
+		ArrayList<Pallet> pallets = new ArrayList<Pallet>();
+		int id = 123;
+		pallets.add(new Pallet(id, new Date(Calendar.getInstance().getTimeInMillis())));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
+		return pallets;
+	}
+	
+	public ArrayList<Pallet> searchForPallet(String recipeName, Date fromDate, Date toDate) {
+		ArrayList<Pallet> pallets = new ArrayList<Pallet>();
+		int id = 123;
+		pallets.add(new Pallet(id, new Date(Calendar.getInstance().getTimeInMillis())));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
+		return pallets;
 	}
 
 	/**
-	 * Block certain pallet (containing a specific product produced during a
+	 * Block certain pallets (containing a specific product produced during a
 	 * specific time)
 	 * 
-	 * @param input
-	 *            define it yourself...
+	 * @param recipeName
 	 * @param fromDate
 	 * @param toDate
 	 * @return true if pallet was blocked, false otherwise
 	 */
-	public boolean blockPallet(String input, Date fromDate, Date toDate) {
+	public boolean blockPallets(String recipeName, Date fromDate, Date toDate) {
 		return false;
 	}
 
@@ -48,15 +67,14 @@ public class Model {
 	 * Must be able to check how many pallets of a product have been produced
 	 * during a specific time
 	 * 
-	 * @param input
+	 * @param recipeName
 	 *            The product to check for
 	 * @param fromDate
 	 * @param toDate
-	 * @return a string containing a nice description of the result (preferably
-	 *         formatted in a nice way)
+	 * @return The amount of pallets produced
 	 */
-	public String checkQuantity(String input, Date fromDate, Date toDate) {
-		return "Quantity for: " + input.trim() + ", " + fromDate + " - " + toDate + " is 0";
+	public int checkQuantity(String recipeName, Date fromDate, Date toDate) {
+		return 0;
 	}
 
 	/**
