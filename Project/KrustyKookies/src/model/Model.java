@@ -27,7 +27,7 @@ public class Model {
 	 *         formatted in a nice way). Returns null if nothing found.
 	 */
 	public Pallet searchForPallet(String palletId) {
-		return new Pallet(dummyId, new Date(Calendar.getInstance().getTimeInMillis()));
+		return new Pallet(dummyId, new Date(Calendar.getInstance().getTimeInMillis()), false);
 	}
 	
 	/**
@@ -39,10 +39,10 @@ public class Model {
 	public ArrayList<Pallet> searchForPallet(Date fromDate, Date toDate) {
 		ArrayList<Pallet> pallets = new ArrayList<Pallet>();
 		int id = 123;
-		pallets.add(new Pallet(id, new Date(Calendar.getInstance().getTimeInMillis())));
-		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
-		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
-		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
+		pallets.add(new Pallet(id, new Date(Calendar.getInstance().getTimeInMillis()), false));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis()), false));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis()), false));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis()), false));
 		return pallets;
 	}
 	
@@ -56,10 +56,10 @@ public class Model {
 	public ArrayList<Pallet> searchForPallet(String recipeName, Date fromDate, Date toDate) {
 		ArrayList<Pallet> pallets = new ArrayList<Pallet>();
 		int id = 123;
-		pallets.add(new Pallet(id, new Date(Calendar.getInstance().getTimeInMillis())));
-		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
-		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
-		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
+		pallets.add(new Pallet(id, new Date(Calendar.getInstance().getTimeInMillis()), false));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis()), false));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis()), false));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis()), false));
 		return pallets;
 	}
 	
@@ -87,10 +87,10 @@ public class Model {
 	public ArrayList<Pallet> blockPallets(String recipeName, Date fromDate, Date toDate) {
 		int id = 1337;
 		ArrayList<Pallet> pallets = new ArrayList<Pallet>();
-		pallets.add(new Pallet(id, new Date(Calendar.getInstance().getTimeInMillis())));
-		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
-		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
-		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
+		pallets.add(new Pallet(id, new Date(Calendar.getInstance().getTimeInMillis()), false));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis()), false));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis()), false));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis()), false));
 		return pallets;
 	}
 

@@ -159,6 +159,7 @@ public class Controller {
 			Customer customer = model.getCustomerForPallet(pallet);
 			Recipe recipe = model.getRecipeForPallet(pallet);
 			toReturn += "Product: " + recipe.name + '\n';
+			toReturn += "Blocked: " + pallet.isBlocked + '\n';
 			toReturn += "Customer name: " + customer.name + '\n';
 			toReturn += "Address: " + customer.address + "\n\n";
 		} else {
