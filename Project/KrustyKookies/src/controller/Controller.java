@@ -3,6 +3,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import view.KrustyView;
 import model.Customer;
@@ -92,12 +93,10 @@ public class Controller {
 				case KrustyView.BLOCK_PALLET:
 					boolean dateResult = validateDates();
 					if (dateResult) {
-						String blockResult = model.blockPallets(searchText,
+						ArrayList<Pallet> blockResult = model.blockPallets(searchText,
 								formatDate(view.getFromDate()),
-								formatDate(view.getToDate())) ? searchText
-								+ " was blocked succesfully"
-								: "Blocking failed";
-						view.updateSearchBox(blockResult);
+								formatDate(view.getToDate()));
+						view.updateSearchBox("");
 					}
 					break;
 				case KrustyView.SEARCH_QUANTITY:

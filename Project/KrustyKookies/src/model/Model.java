@@ -69,10 +69,16 @@ public class Model {
 	 * @param recipeName
 	 * @param fromDate
 	 * @param toDate
-	 * @return true if pallet was blocked, false otherwise
+	 * @return A list of blocked pallets
 	 */
-	public boolean blockPallets(String recipeName, Date fromDate, Date toDate) {
-		return false;
+	public ArrayList<Pallet> blockPallets(String recipeName, Date fromDate, Date toDate) {
+		int id = 1337;
+		ArrayList<Pallet> pallets = new ArrayList<Pallet>();
+		pallets.add(new Pallet(id, new Date(Calendar.getInstance().getTimeInMillis())));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
+		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
+		return pallets;
 	}
 
 	/**
