@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 import se.datadosen.component.RiverLayout;
 
@@ -88,8 +89,8 @@ public class KrustyView extends JFrame {
 		searchOutput.setText(result);
 	}
 
-	public synchronized void insertToProductionBox(String toInsert) {
-		productionOutput.append(toInsert + '\n');
+	public void insertToProductionBox(String toInsert) {
+		SwingUtilities.invokeLater(new LogJob(toInsert));
 		productionOutput.setCaretPosition(productionOutput.getDocument().getLength());
 	}
 
@@ -126,5 +127,16 @@ public class KrustyView extends JFrame {
 		JOptionPane.showMessageDialog(content, message, "Error",
 				JOptionPane.ERROR_MESSAGE);
 	}
-
+	class LogJob implements Runnable {
+		private String toLog;
+		public LogJob(String toLog) {
+			this.toLog = toLog;
+		}
+		
+		@Override
+		public void run() {
+			productionOutput.append(toLog + '\n');
+		}
+		
+	}
 }
