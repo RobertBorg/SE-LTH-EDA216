@@ -15,7 +15,6 @@ public class Controller {
 	public Controller(Model model, KrustyView view) {
 		this.view = view;
 		this.model = model;
-
 		view.addSearchListener(new SearchListener());
 		view.addComboBoxActionListener(new ComboActionListener());
 	}
@@ -61,7 +60,7 @@ public class Controller {
 				Calendar cal = Calendar.getInstance();
 				cal.setLenient(false);
 				cal.set(Calendar.YEAR, Integer.parseInt(dateSplit[0]));
-				cal.set(Calendar.MONTH, Integer.parseInt(dateSplit[1]));
+				cal.set(Calendar.MONTH, Integer.parseInt(dateSplit[1]) - 1);
 				cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dateSplit[2]));
 				Date dateRepresentation = new Date(cal.getTimeInMillis());
 				return dateRepresentation;

@@ -77,7 +77,7 @@ public class KrustyView extends JFrame {
 		productionOutput.setLineWrap(true);
 		outputPanel.add(new JScrollPane(productionOutput));
 
-		content.setSize(900, 700);
+		content.setSize(1024, 768);
 		content.setTitle("Krusty Kookies");
 		content.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		content.setVisible(true);
@@ -88,9 +88,9 @@ public class KrustyView extends JFrame {
 		searchOutput.setText(result);
 	}
 
-	public void insertToProductionBox(String toInsert) {
-		productionOutput.insert(toInsert + '\n',
-				productionOutput.getLineCount() - 1);
+	public synchronized void insertToProductionBox(String toInsert) {
+		productionOutput.append(toInsert + '\n');
+		productionOutput.setCaretPosition(productionOutput.getDocument().getLength());
 	}
 
 	public String getSearchText() {
