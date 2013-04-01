@@ -38,6 +38,7 @@ public class ProductionController {
 		sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
 		timer = new Timer();
 		timer.schedule(new ProductionTask(), 0, (runTime / 5) * 1000 );
+
 	}
 	
 	class ProductionTask extends TimerTask {
@@ -62,8 +63,8 @@ public class ProductionController {
 			String message = sdf.format(cal.getTime()) + " - Order number " + Integer.toString(currentOrder.id) + ", " ;
 			switch (currentStageInProduction) {
 			case PRODUCTION :
-				currentProductionOrder = orders.get(currentProductionOrderNumber);			
-//				updateRawMaterialQuantities(currentProductionOrder.recipe);
+				currentProductionOrder = orders.get(currentProductionOrderNumber);
+				updateRawMaterialQuantities(currentProductionOrder.recipe);
 				message += currentProductionOrder.recipe.name + " in production";
 				currentStageInProduction++;
 				break;
@@ -95,7 +96,6 @@ public class ProductionController {
 					int newQuantity = 100000;
 					model.updateQuantity(i.rawMaterial, newQuantity);
 					Calendar cal = Calendar.getInstance();
-					//XXX: The row below makes the application freeze, any ideas why?
 					view.insertToProductionBox(sdf.format(cal.getTime()) + " - " + i.rawMaterial.name + " quantity restored to " + newQuantity + " units");
 				}
 			}
