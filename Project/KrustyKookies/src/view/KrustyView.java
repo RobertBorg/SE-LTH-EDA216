@@ -47,7 +47,6 @@ public class KrustyView extends JFrame {
 		content.add(toDateLabel);
 		this.toDate = new JTextField("", 6);
 		content.add(toDate);
-		SetDateEditable(false);
 
 		for (String s : searchDescription) {
 			searchCombo.addItem(s);
@@ -86,7 +85,7 @@ public class KrustyView extends JFrame {
 	}
 
 	public void updateSearchBox(String result) {
-		searchOutput.setText(result);
+		SwingUtilities.invokeLater(new SearchResultJob(result));
 	}
 
 	public void insertToProductionBox(String toInsert) {
@@ -95,7 +94,7 @@ public class KrustyView extends JFrame {
 	}
 
 	public String getSearchText() {
-		return inputText.getText();
+		return inputText.getText().trim();
 	}
 
 	public void addSearchListener(ActionListener actionListener) {
@@ -116,11 +115,11 @@ public class KrustyView extends JFrame {
 	}
 
 	public String getFromDate() {
-		return fromDate.getText();
+		return fromDate.getText().trim();
 	}
 
 	public String getToDate() {
-		return toDate.getText();
+		return toDate.getText().trim();
 	}
 
 	public void showErrorDialog(String message) {
@@ -138,5 +137,17 @@ public class KrustyView extends JFrame {
 			productionOutput.append(toLog + '\n');
 		}
 		
+	}
+	
+	class SearchResultJob implements Runnable {
+		private String toLog;
+		public SearchResultJob(String toLog) {
+			this.toLog = toLog;
+		}
+		
+		@Override
+		public void run() {
+			searchOutput.setText(toLog);
+		}
 	}
 }

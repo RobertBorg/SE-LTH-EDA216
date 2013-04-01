@@ -37,7 +37,7 @@ public class Controller {
 	}
 
 	private boolean validateInput() {
-		if (checkInputBoxes()) {
+		if (checkInputBoxes() || view.getSelectedAction() == KrustyView.SEARCH_FOR_PALLET) {
 			return true;
 		} else {
 			view.showErrorDialog("Please fill all input fields.");
@@ -83,29 +83,34 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			if (validateInput()) {
-				String searchText = view.getSearchText();
 				int selectedAction = view.getSelectedAction();
+				String searchText = view.getSearchText();
 				switch (selectedAction) {
 				case KrustyView.SEARCH_FOR_PALLET:
-					Pallet result = model.searchForPallet(searchText);
-					view.updateSearchBox(produceOutputForPallet(result));
+					searchForPallets(searchText, view.getFromDate(), view.getToDate());
 					break;
 				case KrustyView.BLOCK_PALLET:
-					boolean dateResult = validateDates();
-					if (dateResult) {
+					if (validateDates()) {
 						ArrayList<Pallet> blockResult = model.blockPallets(searchText,
 								formatDate(view.getFromDate()),
 								formatDate(view.getToDate()));
-						view.updateSearchBox("");
+						String resultString = "";
+						for(Pallet p : blockResult)
+							resultString += produceOutputForPallet(p, "blocked");
+						view.updateSearchBox(resultString);
 					}
 					break;
 				case KrustyView.SEARCH_QUANTITY:
-					boolean searchDateResult = validateDates();
-					if (searchDateResult) {
+					if (validateDates()) {
 						int quantityResult = model.checkQuantity(searchText,
 								formatDate(view.getFromDate()),
 								formatDate(view.getToDate()));
-						view.updateSearchBox("Amount of pallets: " + Integer.toString(quantityResult));
+						view.updateSearchBox(Integer.toString(quantityResult)
+								+ " pallets of "
+								+ searchText
+								+ " has been produced during the time period between "
+								+ view.getFromDate() + " and "
+								+ view.getToDate());
 					}
 					break;
 				}
@@ -113,8 +118,39 @@ public class Controller {
 		}
 	}
 	
-	private String produceOutputForPallet(Pallet pallet) {
-		String toReturn = "Pallet with id: " + Integer.toString(pallet.id) + " found\n";
+	private void searchForPallets(String searchText, String fromDate, String toDate) {
+		//Search for pallet with id
+			if(fromDate.length() == 0 && toDate.length() == 0) {				
+				Pallet result = model.searchForPallet(searchText);
+				view.updateSearchBox(produceOutputForPallet(result, "found"));
+				return;
+			//Search for pallets produced during a specific time interval
+			} else if(searchText.length() == 0 && fromDate.length() != 0 && toDate.length() != 0) {
+				if(validateDates()) {
+					ArrayList<Pallet> pallets = model.searchForPallet(formatDate(fromDate), formatDate(toDate));
+					String resultString = "";
+					for(Pallet p : pallets)
+						resultString += produceOutputForPallet(p, "found");
+					view.updateSearchBox(resultString);
+				}
+			//Search for a specific product (recipe) produced during a specific time interval
+			} else if(searchText.length() != 0 && fromDate.length() != 0 && toDate.length() != 0) {
+				if(validateDates()) {
+					ArrayList<Pallet> pallets = model.searchForPallet(searchText, formatDate(fromDate), formatDate(toDate));
+					String resultString = "";
+					for(Pallet p : pallets)
+						resultString += produceOutputForPallet(p, "found");
+					view.updateSearchBox(resultString);
+				}
+			} else if(fromDate.length() != 0 || toDate.length() != 0) {
+				validateDates();
+			} else {
+				view.showErrorDialog("Please make up your mind.");
+			}
+	}
+	
+	private String produceOutputForPallet(Pallet pallet, String action) {
+		String toReturn = "Pallet with id: " + Integer.toString(pallet.id) + " " + action + "\n";
 		Customer customer = model.getCustomerForPallet(pallet);
 		Recipe recipe = model.getRecipeForPallet(pallet);
 		toReturn += "Product: " + recipe.name + '\n';
@@ -129,7 +165,7 @@ public class Controller {
 		public void actionPerformed(ActionEvent arg0) {
 			switch (view.getSelectedAction()) {
 			case KrustyView.SEARCH_FOR_PALLET:
-				view.SetDateEditable(false);
+//				view.SetDateEditable(false);
 				break;
 			case KrustyView.BLOCK_PALLET:
 			case KrustyView.SEARCH_QUANTITY:
