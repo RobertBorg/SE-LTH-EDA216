@@ -20,7 +20,6 @@ public class Controller {
 		this.view = view;
 		this.model = model;
 		view.addSearchListener(new SearchListener());
-		view.addComboBoxActionListener(new ComboActionListener());
 	}
 
 	private boolean validateDates() {
@@ -94,10 +93,7 @@ public class Controller {
 						ArrayList<Pallet> blockResult = model.blockPallets(searchText,
 								formatDate(view.getFromDate()),
 								formatDate(view.getToDate()));
-						String resultString = "";
-						for(Pallet p : blockResult)
-							resultString += produceOutputForPallet(p, "blocked");
-						view.updateSearchBox(resultString);
+						produceOutputForPallets(blockResult, "blocked");
 					}
 					break;
 				case KrustyView.SEARCH_QUANTITY:
@@ -120,58 +116,54 @@ public class Controller {
 	
 	private void searchForPallets(String searchText, String fromDate, String toDate) {
 		//Search for pallet with id
-			if(fromDate.length() == 0 && toDate.length() == 0) {				
-				Pallet result = model.searchForPallet(searchText);
-				view.updateSearchBox(produceOutputForPallet(result, "found"));
-				return;
+		if(searchText.length() == 0 && fromDate.length() == 0 && toDate.length() == 0) {
+			view.showErrorDialog("Please fill all input fields.");
+		}else if(fromDate.length() == 0 && toDate.length() == 0) {				
+			Pallet result = model.searchForPallet(searchText);
+			view.updateSearchBox(produceOutputForPallet(result, "found"));
+			return;
 			//Search for pallets produced during a specific time interval
-			} else if(searchText.length() == 0 && fromDate.length() != 0 && toDate.length() != 0) {
-				if(validateDates()) {
-					ArrayList<Pallet> pallets = model.searchForPallet(formatDate(fromDate), formatDate(toDate));
-					String resultString = "";
-					for(Pallet p : pallets)
-						resultString += produceOutputForPallet(p, "found");
-					view.updateSearchBox(resultString);
-				}
-			//Search for a specific product (recipe) produced during a specific time interval
-			} else if(searchText.length() != 0 && fromDate.length() != 0 && toDate.length() != 0) {
-				if(validateDates()) {
-					ArrayList<Pallet> pallets = model.searchForPallet(searchText, formatDate(fromDate), formatDate(toDate));
-					String resultString = "";
-					for(Pallet p : pallets)
-						resultString += produceOutputForPallet(p, "found");
-					view.updateSearchBox(resultString);
-				}
-			} else if(fromDate.length() != 0 || toDate.length() != 0) {
-				validateDates();
-			} else {
-				view.showErrorDialog("Please make up your mind.");
+		} else if(searchText.length() == 0 && fromDate.length() != 0 && toDate.length() != 0) {
+			if(validateDates()) {
+				ArrayList<Pallet> pallets = model.searchForPallet(formatDate(fromDate), formatDate(toDate));
+				produceOutputForPallets(pallets, "found");
 			}
+			//Search for a specific product (recipe) produced during a specific time interval
+		} else if(searchText.length() != 0 && fromDate.length() != 0 && toDate.length() != 0) {
+			if(validateDates()) {
+				ArrayList<Pallet> pallets = model.searchForPallet(searchText, formatDate(fromDate), formatDate(toDate));
+				produceOutputForPallets(pallets, "found");
+			}
+		} else if(fromDate.length() != 0 || toDate.length() != 0) {
+			validateDates();
+		} else {
+			view.showErrorDialog("Please make up your mind.");
+		}
+	}
+	
+	private void produceOutputForPallets(ArrayList<Pallet> pallets, String action) {
+		if(!pallets.isEmpty()) {
+			String resultString = "";
+			for(Pallet p : pallets)
+				resultString += produceOutputForPallet(p, action);
+			view.updateSearchBox(resultString);
+		} else {
+			view.updateSearchBox("Nothing " + action);
+		}
 	}
 	
 	private String produceOutputForPallet(Pallet pallet, String action) {
-		String toReturn = "Pallet with id: " + Integer.toString(pallet.id) + " " + action + "\n";
-		Customer customer = model.getCustomerForPallet(pallet);
-		Recipe recipe = model.getRecipeForPallet(pallet);
-		toReturn += "Product: " + recipe.name + '\n';
-		toReturn += "Customer name: " + customer.name + '\n';
-		toReturn += "Address: " + customer.address + "\n\n";
-		return toReturn;
-	}
-
-	class ComboActionListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			switch (view.getSelectedAction()) {
-			case KrustyView.SEARCH_FOR_PALLET:
-//				view.SetDateEditable(false);
-				break;
-			case KrustyView.BLOCK_PALLET:
-			case KrustyView.SEARCH_QUANTITY:
-				view.SetDateEditable(true);
-				break;
-			}
+		String toReturn;
+		if(pallet != null) {
+			toReturn = "Pallet with id: " + Integer.toString(pallet.id) + " " + action + "\n";
+			Customer customer = model.getCustomerForPallet(pallet);
+			Recipe recipe = model.getRecipeForPallet(pallet);
+			toReturn += "Product: " + recipe.name + '\n';
+			toReturn += "Customer name: " + customer.name + '\n';
+			toReturn += "Address: " + customer.address + "\n\n";
+		} else {
+			toReturn = "Nothing found";
 		}
-	}
+		return toReturn;
+	}	
 }

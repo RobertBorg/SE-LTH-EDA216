@@ -24,12 +24,18 @@ public class Model {
 	 * 
 	 * @param palletId
 	 * @return a string containing a nice description of the result (preferably
-	 *         formatted in a nice way)
+	 *         formatted in a nice way). Returns null if nothing found.
 	 */
 	public Pallet searchForPallet(String palletId) {
 		return new Pallet(dummyId, new Date(Calendar.getInstance().getTimeInMillis()));
 	}
 	
+	/**
+	 * 
+	 * @param fromDate
+	 * @param toDate
+	 * @return A list containing the found pallets. Returns an empty list if no pallets were found.
+	 */
 	public ArrayList<Pallet> searchForPallet(Date fromDate, Date toDate) {
 		ArrayList<Pallet> pallets = new ArrayList<Pallet>();
 		int id = 123;
@@ -40,6 +46,13 @@ public class Model {
 		return pallets;
 	}
 	
+	/**
+	 * 
+	 * @param recipeName
+	 * @param fromDate
+	 * @param toDate
+	 * @return A list containing the found pallets. Returns an empty list if no pallets were found.
+	 */
 	public ArrayList<Pallet> searchForPallet(String recipeName, Date fromDate, Date toDate) {
 		ArrayList<Pallet> pallets = new ArrayList<Pallet>();
 		int id = 123;
@@ -69,7 +82,7 @@ public class Model {
 	 * @param recipeName
 	 * @param fromDate
 	 * @param toDate
-	 * @return A list of blocked pallets
+	 * @return A list of blocked pallets. Returns an empty list if no pallets were blocked.
 	 */
 	public ArrayList<Pallet> blockPallets(String recipeName, Date fromDate, Date toDate) {
 		int id = 1337;

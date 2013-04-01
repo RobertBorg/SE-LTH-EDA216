@@ -109,11 +109,6 @@ public class KrustyView extends JFrame {
 		return searchCombo.getSelectedIndex();
 	}
 
-	public void SetDateEditable(boolean editable) {
-		fromDate.setEditable(editable);
-		toDate.setEditable(editable);
-	}
-
 	public String getFromDate() {
 		return fromDate.getText().trim();
 	}
