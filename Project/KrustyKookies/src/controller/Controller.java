@@ -5,8 +5,10 @@ import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.util.Calendar;
 import view.KrustyView;
+import model.Customer;
 import model.Model;
 import model.Pallet;
+import model.Recipe;
 
 public class Controller {
 
@@ -85,7 +87,7 @@ public class Controller {
 				switch (selectedAction) {
 				case KrustyView.SEARCH_FOR_PALLET:
 					Pallet result = model.searchForPallet(searchText);
-					view.updateSearchBox("Pallet with id: " + Integer.toString(result.id) + " found");
+					view.updateSearchBox(produceOutputForPallet(result));
 					break;
 				case KrustyView.BLOCK_PALLET:
 					boolean dateResult = validateDates();
@@ -110,6 +112,16 @@ public class Controller {
 				}
 			}
 		}
+	}
+	
+	private String produceOutputForPallet(Pallet pallet) {
+		String toReturn = "Pallet with id: " + Integer.toString(pallet.id) + " found\n";
+		Customer customer = model.getCustomerForPallet(pallet);
+		Recipe recipe = model.getRecipeForPallet(pallet);
+		toReturn += "Product: " + recipe.name + '\n';
+		toReturn += "Customer name: " + customer.name + '\n';
+		toReturn += "Address: " + customer.address + "\n\n";
+		return toReturn;
 	}
 
 	class ComboActionListener implements ActionListener {

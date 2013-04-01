@@ -53,6 +53,14 @@ public class Model {
 	public Customer getCustomerForPallet(Pallet pallet) {
 		return new Customer("Finkakor AB", "Helsingborg");
 	}
+	
+	public Recipe getRecipeForPallet(Pallet pallet) {
+		RawMaterial carrot = new RawMaterial("Carrot");
+		Ingredient carrotIngredient = new Ingredient(100, carrot);
+		ArrayList<Ingredient> carrotIngredients = new ArrayList<Ingredient>();
+		carrotIngredients.add(carrotIngredient);
+		return new Recipe("Carrots", carrotIngredients);
+	}
 
 	/**
 	 * Block certain pallets (containing a specific product produced during a
