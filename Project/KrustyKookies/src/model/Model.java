@@ -49,6 +49,10 @@ public class Model {
 		pallets.add(new Pallet(++id, new Date(Calendar.getInstance().getTimeInMillis())));
 		return pallets;
 	}
+	
+	public Customer getCustomerForPallet(Pallet pallet) {
+		return new Customer("Finkakor AB", "Helsingborg");
+	}
 
 	/**
 	 * Block certain pallets (containing a specific product produced during a
