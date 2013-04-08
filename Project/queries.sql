@@ -41,9 +41,10 @@ CONSTRAINT uniqueNames UNIQUE (rawMaterialName,recipeName)
 create table Pallets (
 id int PRIMARY KEY AUTO_INCREMENT,
 orderId int,
-creationDateAndTime datetime NOT NULL,
+creationDateAndTime datetime,
 recipeName char(100) NOT NULL,
 shipmentId int,
+isBlocked boolean,
 FOREIGN KEY (orderId)
   REFERENCES Orders(id),
 FOREIGN KEY (recipeName)
@@ -72,3 +73,5 @@ id int PRIMARY KEY AUTO_INCREMENT
 SET foreign_key_checks = 1;
 
 -- Insert data into the tables.
+
+Insert INTO Recipes VALUES ('SugarCookies');

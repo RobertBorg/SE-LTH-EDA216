@@ -90,10 +90,11 @@ public class Controller {
 					break;
 				case KrustyView.BLOCK_PALLET:
 					if (validateDates()) {
-						ArrayList<Pallet> blockResult = model.blockPallets(searchText,
+						int numBlocked=  model.blockPallets(searchText,
 								formatDate(view.getFromDate()),
 								formatDate(view.getToDate()));
-						produceOutputForPallets(blockResult, "blocked");
+						view.updateSearchBox(String.format("Blocked %d pallets", numBlocked));
+						
 					}
 					break;
 				case KrustyView.SEARCH_QUANTITY:
@@ -155,7 +156,7 @@ public class Controller {
 	private String produceOutputForPallet(Pallet pallet, String action) {
 		String toReturn;
 		if(pallet != null) {
-			toReturn = "Pallet with id: " + Integer.toString(pallet.id) + " " + action + "\n";
+			toReturn = "Pallet with id: " + Long.toString(pallet.id) + " " + action + "\n";
 			Customer customer = model.getCustomerForPallet(pallet);
 			Recipe recipe = model.getRecipeForPallet(pallet);
 			toReturn += "Product: " + recipe.name + '\n';

@@ -9,6 +9,7 @@ import java.util.TimerTask;
 import model.Ingredient;
 import model.Model;
 import model.Order;
+import model.Pallet;
 import model.ProductionOrder;
 import model.Recipe;
 import view.KrustyView;
@@ -26,7 +27,7 @@ public class ProductionController {
 	private KrustyView view;
 	private Model model;
 	private ProductionOrder currentProductionOrder;
-	private Order currentOrder;
+	private Pallet currentPallet;
 	private ArrayList<ProductionOrder> orders;
 	private SimpleDateFormat sdf;
 	private int currentProductionOrderNumber = Integer.MAX_VALUE;
@@ -46,21 +47,14 @@ public class ProductionController {
 		@Override
 		public void run() {
 			Calendar cal = Calendar.getInstance();
-			if(orders == null || currentProductionOrderNumber >= orders.size()) {
-				currentOrder = model.getNextOrder();
-				if(currentOrder == null) {
+			if(currentPallet == null) {
+				currentPallet = model.getNextPalletToProduce();
+				if(currentPallet == null) {
 					view.insertToProductionBox(sdf.format(cal.getTime()) + " - No orders to produce");
 					return;
 				}
-				orders = currentOrder.productionOrders;		
-				if(orders.size() > 0) {
-					currentProductionOrderNumber = 0;
-				} else {
-					view.insertToProductionBox(sdf.format(cal.getTime()) + " - No production orders in order number " + Integer.toString(currentOrder.id));
-					return;
-				}
 			}
-			String message = sdf.format(cal.getTime()) + " - Order number " + Integer.toString(currentOrder.id) + ", " ;
+			String message = sdf.format(cal.getTime()) + " - Order number " + Long.toString(currentPallet.orderId) + ", " ;
 			switch (currentStageInProduction) {
 			case PRODUCTION :
 				currentProductionOrder = orders.get(currentProductionOrderNumber);
@@ -83,8 +77,8 @@ public class ProductionController {
 			case LOADING_ON_PALLETS :
 				message += currentProductionOrder.recipe.name + " in loading on pallets";
 				currentStageInProduction = PRODUCTION;
-				currentProductionOrderNumber++;
-				model.createPallet(currentOrder, currentProductionOrder);
+				model.createPallet(currentPallet);
+				currentPallet = null;
 				break;
 			}
 			view.insertToProductionBox(message);			
