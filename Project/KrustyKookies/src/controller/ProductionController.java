@@ -57,25 +57,24 @@ public class ProductionController {
 			String message = sdf.format(cal.getTime()) + " - Order number " + Long.toString(currentPallet.orderId) + ", " ;
 			switch (currentStageInProduction) {
 			case PRODUCTION :
-				currentProductionOrder = orders.get(currentProductionOrderNumber);
-				updateRawMaterialQuantities(currentProductionOrder.recipe);
-				message += currentProductionOrder.recipe.name + " in production";
+				//updateRawMaterialQuantities(currentPallet.recipeName);
+				message += currentPallet.recipeName + " in production";
 				currentStageInProduction++;
 				break;
 			case FREEZING :
-				message += currentProductionOrder.recipe.name + " in freezing";
+				message += currentPallet.recipeName + " in freezing";
 				currentStageInProduction++;
 				break;
 			case PACKAGING_IN_BAGS :
-				message += currentProductionOrder.recipe.name + " in packaging in bags";
+				message += currentPallet.recipeName + " in packaging in bags";
 				currentStageInProduction++;
 				break;
 			case PACKAGING_IN_CARTONS :
-				message += currentProductionOrder.recipe.name + " in packaging in cartons";
+				message += currentPallet.recipeName + " in packaging in cartons";
 				currentStageInProduction++;
 				break;
 			case LOADING_ON_PALLETS :
-				message += currentProductionOrder.recipe.name + " in loading on pallets";
+				message += currentPallet.recipeName + " in loading on pallets";
 				currentStageInProduction = PRODUCTION;
 				model.createPallet(currentPallet);
 				currentPallet = null;

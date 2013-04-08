@@ -442,7 +442,7 @@ public class Model {
 		String sql = 
 		"select Pallets.*"+
 		"from Pallets, Orders "+
-		"where Pallets.orderId = Orders.id and Pallets.creationDateAndTime = NULL "+
+		"where Pallets.orderId = Orders.id and Pallets.creationDateAndTime is NULL "+
 		"ORDER BY requestedDeliveryDate ASC "+
 		"LIMIT 1 ";
 

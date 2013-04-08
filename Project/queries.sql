@@ -75,3 +75,9 @@ SET foreign_key_checks = 1;
 -- Insert data into the tables.
 
 Insert INTO Recipes VALUES ('SugarCookies');
+INSERT into customers VALUES ('customer1', 'dummyroad 4');
+INSERT INTO Orders VALUES (1, '2013-04-15', 'customer1' );
+Insert INTO Pallets VALUES (1, 1, NULL, 'SugarCookies', NULL, FALSE);
+
+INSERT INTO Orders VALUES (2, '2013-04-16', 'customer1' );
+Insert INTO Pallets VALUES (2, 2, NULL, 'SugarCookies', NULL, FALSE);
