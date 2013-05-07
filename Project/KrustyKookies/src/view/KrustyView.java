@@ -25,7 +25,7 @@ public class KrustyView extends JFrame {
 	private JTextArea searchOutput, productionOutput;
 	private String[] searchDescription = { "Search for pallet",
 			"Block pallets", "Search quantity" };
-	private JComboBox<String> searchCombo = new JComboBox<String>();
+	private JComboBox searchCombo = new JComboBox();
 
 	public static final int SEARCH_FOR_PALLET = 0;
 	public static final int BLOCK_PALLET = 1;

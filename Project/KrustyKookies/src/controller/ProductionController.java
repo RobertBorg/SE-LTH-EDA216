@@ -36,7 +36,7 @@ public class ProductionController {
 		this.view = view;
 		this.model = model;
 		
-		sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+		sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		timer = new Timer();
 		timer.schedule(new ProductionTask(), 0, (runTime / 5) * 1000 );
 

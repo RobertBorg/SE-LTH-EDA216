@@ -159,10 +159,13 @@ public class Controller {
 			toReturn = "Pallet with id: " + Long.toString(pallet.id) + " " + action + "\n";
 			Customer customer = model.getCustomerForPallet(pallet);
 			Recipe recipe = model.getRecipeForPallet(pallet);
-			toReturn += "Product: " + recipe.name + '\n';
+			String recipeName = recipe != null ? recipe.name : "null";
+			toReturn += "Product: " + recipeName + '\n';
 			toReturn += "Blocked: " + pallet.isBlocked + '\n';
-			toReturn += "Customer name: " + customer.name + '\n';
-			toReturn += "Address: " + customer.address + "\n\n";
+			String customerName = customer != null ? customer.name : "null";
+			String customerAddress = customer != null ? customer.address : "null";
+			toReturn += "Customer name: " + customerName + '\n';
+			toReturn += "Address: " + customerAddress + "\n\n";
 		} else {
 			toReturn = "Nothing found";
 		}
