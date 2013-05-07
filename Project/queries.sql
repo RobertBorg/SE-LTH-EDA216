@@ -79,7 +79,7 @@ Insert INTO Recipes VALUES ('Nut ring');
 Insert INTO Recipes VALUES ('Nut cookie');
 Insert INTO Recipes VALUES ('Amneris');
 Insert INTO Recipes VALUES ('Tango');
-Insert INTO Recipes VALUES ('ALmond delight');
+Insert INTO Recipes VALUES ('Almond delight');
 Insert INTO Recipes VALUES ('Berliner');
 
 -- Raw materials
@@ -101,44 +101,45 @@ INSERT INTO RawMaterials VALUES ('Vanilla');
 INSERT INTO RawMaterials VALUES ('Chopped almonds');
 INSERT INTO RawMaterials VALUES ('Cinnamon');
 INSERT INTO RawMaterials VALUES ('Vanilla sugar');
+INSERT INTO RawMaterials VALUES ('Ground, roasted nuts');
 
 -- Nut ring
-INSERT INTO Ingredients (450,'Flour','Nut ring');
-INSERT INTO Ingredients (450,'Butter','Nut ring');
-INSERT INTO Ingredients (190,'Icing sugar','Nut ring');
-INSERT INTO Ingredients (225,'Roasted, chopped nuts','Nut ring');
+INSERT INTO Ingredients VALUES (450,'Flour','Nut ring');
+INSERT INTO Ingredients VALUES (450,'Butter','Nut ring');
+INSERT INTO Ingredients VALUES (190,'Icing sugar','Nut ring');
+INSERT INTO Ingredients VALUES (225,'Roasted, chopped nuts','Nut ring');
 -- Nut cookie
-INSERT INTO Ingredients (750,'Fine-ground nuts','Nut cookie');
-INSERT INTO Ingredients (625,'Ground, roasted nuts','Nut cookie');
-INSERT INTO Ingredients (125,'Bread crumbs','Nut cookie');
-INSERT INTO Ingredients (375,'Sugar','Nut cookie');
-INSERT INTO Ingredients (350,'Egg whites','Nut cookie');
-INSERT INTO Ingredients (50,'Chocolate','Nut cookie');
+INSERT INTO Ingredients VALUES (750,'Fine-ground nuts','Nut cookie');
+INSERT INTO Ingredients VALUES (625,'Ground, roasted nuts','Nut cookie');
+INSERT INTO Ingredients VALUES (125,'Bread crumbs','Nut cookie');
+INSERT INTO Ingredients VALUES (375,'Sugar','Nut cookie');
+INSERT INTO Ingredients VALUES (350,'Egg whites','Nut cookie');
+INSERT INTO Ingredients VALUES (50,'Chocolate','Nut cookie');
 -- Amneris
-INSERT INTO Ingredients (750,'Marzipan','Amneris');
-INSERT INTO Ingredients (250,'Butter','Amneris');
-INSERT INTO Ingredients (250,'Eggs','Amneris');
-INSERT INTO Ingredients (25,'Potato starch','Amneris');
-INSERT INTO Ingredients (25,'Wheat ﬂour','Amneris');
+INSERT INTO Ingredients VALUES (750,'Marzipan','Amneris');
+INSERT INTO Ingredients VALUES (250,'Butter','Amneris');
+INSERT INTO Ingredients VALUES (250,'Eggs','Amneris');
+INSERT INTO Ingredients VALUES (25,'Potato starch','Amneris');
+INSERT INTO Ingredients VALUES (25,'Wheat flour','Amneris');
 -- Tango
-INSERT INTO Ingredients (200,'Butter','Tango');
-INSERT INTO Ingredients (250,'Sugar','Tango');
-INSERT INTO Ingredients (300,'Flour','Tango');
-INSERT INTO Ingredients (4,'Sodium bicarbonate','Tango');
-INSERT INTO Ingredients (2,'Vanilla','Tango');
+INSERT INTO Ingredients VALUES (200,'Butter','Tango');
+INSERT INTO Ingredients VALUES (250,'Sugar','Tango');
+INSERT INTO Ingredients VALUES (300,'Flour','Tango');
+INSERT INTO Ingredients VALUES (4,'Sodium bicarbonate','Tango');
+INSERT INTO Ingredients VALUES (2,'Vanilla','Tango');
 -- Almond delight
-INSERT INTO Ingredients (400,'Butter','Almond delight');
-INSERT INTO Ingredients (270,'Sugar','Almond delight');
-INSERT INTO Ingredients (279,'Chopped almonds','Almond delight');
-INSERT INTO Ingredients (400,'Flour','Almond delight');
-INSERT INTO Ingredients (10,'Cinnamon','Almond delight');
+INSERT INTO Ingredients VALUES (400,'Butter','Almond delight');
+INSERT INTO Ingredients VALUES (270,'Sugar','Almond delight');
+INSERT INTO Ingredients VALUES (279,'Chopped almonds','Almond delight');
+INSERT INTO Ingredients VALUES (400,'Flour','Almond delight');
+INSERT INTO Ingredients VALUES (10,'Cinnamon','Almond delight');
 -- Berliner
-INSERT INTO Ingredients (350,'Flour','Berliner');
-INSERT INTO Ingredients (250,'Butter','Berliner');
-INSERT INTO Ingredients (100,'Icing sugar','Berliner');
-INSERT INTO Ingredients (50,'Eggs','Berliner');
-INSERT INTO Ingredients (5,'Vanilla sugar','Berliner');
-INSERT INTO Ingredients (50,'Chocolate','Berliner');
+INSERT INTO Ingredients VALUES (350,'Flour','Berliner');
+INSERT INTO Ingredients VALUES (250,'Butter','Berliner');
+INSERT INTO Ingredients VALUES (100,'Icing sugar','Berliner');
+INSERT INTO Ingredients VALUES (50,'Eggs','Berliner');
+INSERT INTO Ingredients VALUES (5,'Vanilla sugar','Berliner');
+INSERT INTO Ingredients VALUES (50,'Chocolate','Berliner');
 
 -- Customers
 INSERT into customers VALUES ('Finkakor AB', 'Helsingborg');
