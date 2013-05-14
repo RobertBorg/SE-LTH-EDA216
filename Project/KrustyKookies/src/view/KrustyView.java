@@ -21,10 +21,10 @@ public class KrustyView extends JFrame {
 	private static final long serialVersionUID = -7322546617726420651L;
 	private JFrame content;
 	private JTextField inputText, fromDate, toDate;
-	private JButton searchButton;
+	private JButton searchButton, blockedTrue, blockedFalse;
 	private JTextArea searchOutput, productionOutput;
 	private String[] searchDescription = { "Search for pallet",
-			"Block pallets", "Search quantity" };
+			"Block pallets", "Search quantity"};
 	private JComboBox searchCombo = new JComboBox();
 
 	public static final int SEARCH_FOR_PALLET = 0;
@@ -54,7 +54,7 @@ public class KrustyView extends JFrame {
 		content.add("tab", searchCombo);
 		this.searchButton = new JButton("Search");
 		content.add("tab", searchButton);
-
+		
 		GridLayout outputLayout = new GridLayout(0, 2);
 		outputLayout.setHgap(10);
 		JPanel outputPanel = new JPanel(outputLayout);
@@ -77,6 +77,11 @@ public class KrustyView extends JFrame {
 		productionOutput.setLineWrap(true);
 		outputPanel.add(new JScrollPane(productionOutput));
 
+		this.blockedTrue = new JButton("Blocked");
+		content.add("p", blockedTrue);
+		this.blockedFalse = new JButton("Not blocked");
+		content.add("", blockedFalse);
+		
 		content.setSize(1024, 768);
 		content.setTitle("Krusty Kookies");
 		content.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,6 +104,14 @@ public class KrustyView extends JFrame {
 
 	public void addSearchListener(ActionListener actionListener) {
 		searchButton.addActionListener(actionListener);
+	}
+	
+	public void addBlockedButtonListener(ActionListener actionListener) {
+		blockedTrue.addActionListener(actionListener);
+	}
+	
+	public void addNotBlockedButtonListener(ActionListener actionListener) {
+		blockedFalse.addActionListener(actionListener);
 	}
 
 	public void addComboBoxActionListener(ActionListener actionListener) {

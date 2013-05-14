@@ -437,4 +437,9 @@ public class Model {
 		}
 		
 	}
+	
+	public ArrayList<Pallet> getPalletsWithBlockStatus(boolean status) {
+		ArrayList<Pallet> toReturn = new ArrayList<Pallet>();
+		return toReturn;
+	}
 }

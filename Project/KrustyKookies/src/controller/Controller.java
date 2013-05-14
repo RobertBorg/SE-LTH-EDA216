@@ -20,6 +20,8 @@ public class Controller {
 		this.view = view;
 		this.model = model;
 		view.addSearchListener(new SearchListener());
+		view.addBlockedButtonListener(new BlockedListener());
+		view.addNotBlockedButtonListener(new UnBlockedListener());
 	}
 
 	private boolean validateDates() {
@@ -119,9 +121,18 @@ public class Controller {
 		//Search for pallet with id
 		if(searchText.length() == 0 && fromDate.length() == 0 && toDate.length() == 0) {
 			view.showErrorDialog("Please fill all input fields.");
-		}else if(fromDate.length() == 0 && toDate.length() == 0) {				
-			Pallet result = model.searchForPallet(searchText);
-			view.updateSearchBox(produceOutputForPallet(result, "found"));
+		}else if(fromDate.length() == 0 && toDate.length() == 0) {	
+			//Search for id
+			Pallet result = null;
+			try {
+				int palletId = Integer.parseInt(searchText);
+				result = model.searchForPallet(palletId + "");
+				view.updateSearchBox(produceOutputForPallet(result, "found"));
+			} catch (NumberFormatException e ) {
+				//Search for recipe
+				ArrayList<Pallet> pallets = model.searchForPallet(searchText, null, null);
+				produceOutputForPallets(pallets, "found");
+			}
 			return;
 			//Search for pallets produced during a specific time interval
 		} else if(searchText.length() == 0 && fromDate.length() != 0 && toDate.length() != 0) {
@@ -171,4 +182,24 @@ public class Controller {
 		}
 		return toReturn;
 	}	
+	
+	class BlockedListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			ArrayList<Pallet> pallets = model.getPalletsWithBlockStatus(true);
+			produceOutputForPallets(pallets, "found");
+		}
+		
+	}
+	
+	class UnBlockedListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ArrayList<Pallet> pallets = model.getPalletsWithBlockStatus(false);
+			produceOutputForPallets(pallets, "found");
+		}
+		
+	}
 }
