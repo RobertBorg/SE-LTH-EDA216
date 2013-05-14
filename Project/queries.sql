@@ -84,25 +84,25 @@ Insert INTO Recipes VALUES ('Almond delight');
 Insert INTO Recipes VALUES ('Berliner');
 
 -- Raw materials
-INSERT INTO RawMaterials VALUES ('Butter', 100);
-INSERT INTO RawMaterials VALUES ('Icing sugar', 100);
-INSERT INTO RawMaterials VALUES ('Roasted, chopped nuts', 100);
-INSERT INTO RawMaterials VALUES ('Fine-ground nuts', 100);
-INSERT INTO RawMaterials VALUES ('Bread crumbs', 100);
-INSERT INTO RawMaterials VALUES ('Sugar', 100);
-INSERT INTO RawMaterials VALUES ('Egg whites', 100);
-INSERT INTO RawMaterials VALUES ('Chocolate', 100);
-INSERT INTO RawMaterials VALUES ('Marzipan', 100);
-INSERT INTO RawMaterials VALUES ('Eggs', 100);
-INSERT INTO RawMaterials VALUES ('Potato starch', 100);
-INSERT INTO RawMaterials VALUES ('Wheat flour', 100);
-INSERT INTO RawMaterials VALUES ('Flour', 100);
-INSERT INTO RawMaterials VALUES ('Sodium bicarbonate', 100);
-INSERT INTO RawMaterials VALUES ('Vanilla', 100);
-INSERT INTO RawMaterials VALUES ('Chopped almonds', 100);
-INSERT INTO RawMaterials VALUES ('Cinnamon', 100);
-INSERT INTO RawMaterials VALUES ('Vanilla sugar', 100);
-INSERT INTO RawMaterials VALUES ('Ground, roasted nuts', 100);
+INSERT INTO RawMaterials VALUES ('Butter', 10000);
+INSERT INTO RawMaterials VALUES ('Icing sugar', 10000);
+INSERT INTO RawMaterials VALUES ('Roasted, chopped nuts', 10000);
+INSERT INTO RawMaterials VALUES ('Fine-ground nuts', 10000);
+INSERT INTO RawMaterials VALUES ('Bread crumbs', 10000);
+INSERT INTO RawMaterials VALUES ('Sugar', 10000);
+INSERT INTO RawMaterials VALUES ('Egg whites', 10000);
+INSERT INTO RawMaterials VALUES ('Chocolate', 10000);
+INSERT INTO RawMaterials VALUES ('Marzipan', 10000);
+INSERT INTO RawMaterials VALUES ('Eggs', 10000);
+INSERT INTO RawMaterials VALUES ('Potato starch', 10000);
+INSERT INTO RawMaterials VALUES ('Wheat flour', 10000);
+INSERT INTO RawMaterials VALUES ('Flour', 10000);
+INSERT INTO RawMaterials VALUES ('Sodium bicarbonate', 10000);
+INSERT INTO RawMaterials VALUES ('Vanilla', 10000);
+INSERT INTO RawMaterials VALUES ('Chopped almonds', 10000);
+INSERT INTO RawMaterials VALUES ('Cinnamon', 10000);
+INSERT INTO RawMaterials VALUES ('Vanilla sugar', 10000);
+INSERT INTO RawMaterials VALUES ('Ground, roasted nuts', 10000);
 
 -- Nut ring
 INSERT INTO Ingredients VALUES (450,'Flour','Nut ring');
