@@ -1,5 +1,5 @@
 //http://yuml.me/diagram/scruffy/class/draw
-[RawMaterials|name],
+[RawMaterials|name|quantity],
 [Ingredients|quantity],
 [Recipes|name],
 [Pallets|id;creationDateAndTime;isBlocked],

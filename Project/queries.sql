@@ -20,7 +20,8 @@ DROP TABLE IF EXISTS Shipments;
 
 -- Create the tables.
 create table RawMaterials (
-name char(40) PRIMARY KEY
+name char(40) PRIMARY KEY,
+quantity int NOT NULL
 );
 
 create table Recipes (
@@ -83,31 +84,32 @@ Insert INTO Recipes VALUES ('Almond delight');
 Insert INTO Recipes VALUES ('Berliner');
 
 -- Raw materials
-INSERT INTO RawMaterials VALUES ('Butter');
-INSERT INTO RawMaterials VALUES ('Icing sugar');
-INSERT INTO RawMaterials VALUES ('Roasted, chopped nuts');
-INSERT INTO RawMaterials VALUES ('Fine-ground nuts');
-INSERT INTO RawMaterials VALUES ('Bread crumbs');
-INSERT INTO RawMaterials VALUES ('Sugar');
-INSERT INTO RawMaterials VALUES ('Egg whites');
-INSERT INTO RawMaterials VALUES ('Chocolate');
-INSERT INTO RawMaterials VALUES ('Marzipan');
-INSERT INTO RawMaterials VALUES ('Eggs');
-INSERT INTO RawMaterials VALUES ('Potato starch');
-INSERT INTO RawMaterials VALUES ('Wheat flour');
-INSERT INTO RawMaterials VALUES ('Flour');
-INSERT INTO RawMaterials VALUES ('Sodium bicarbonate');
-INSERT INTO RawMaterials VALUES ('Vanilla');
-INSERT INTO RawMaterials VALUES ('Chopped almonds');
-INSERT INTO RawMaterials VALUES ('Cinnamon');
-INSERT INTO RawMaterials VALUES ('Vanilla sugar');
-INSERT INTO RawMaterials VALUES ('Ground, roasted nuts');
+INSERT INTO RawMaterials VALUES ('Butter', 100);
+INSERT INTO RawMaterials VALUES ('Icing sugar', 100);
+INSERT INTO RawMaterials VALUES ('Roasted, chopped nuts', 100);
+INSERT INTO RawMaterials VALUES ('Fine-ground nuts', 100);
+INSERT INTO RawMaterials VALUES ('Bread crumbs', 100);
+INSERT INTO RawMaterials VALUES ('Sugar', 100);
+INSERT INTO RawMaterials VALUES ('Egg whites', 100);
+INSERT INTO RawMaterials VALUES ('Chocolate', 100);
+INSERT INTO RawMaterials VALUES ('Marzipan', 100);
+INSERT INTO RawMaterials VALUES ('Eggs', 100);
+INSERT INTO RawMaterials VALUES ('Potato starch', 100);
+INSERT INTO RawMaterials VALUES ('Wheat flour', 100);
+INSERT INTO RawMaterials VALUES ('Flour', 100);
+INSERT INTO RawMaterials VALUES ('Sodium bicarbonate', 100);
+INSERT INTO RawMaterials VALUES ('Vanilla', 100);
+INSERT INTO RawMaterials VALUES ('Chopped almonds', 100);
+INSERT INTO RawMaterials VALUES ('Cinnamon', 100);
+INSERT INTO RawMaterials VALUES ('Vanilla sugar', 100);
+INSERT INTO RawMaterials VALUES ('Ground, roasted nuts', 100);
 
 -- Nut ring
 INSERT INTO Ingredients VALUES (450,'Flour','Nut ring');
 INSERT INTO Ingredients VALUES (450,'Butter','Nut ring');
 INSERT INTO Ingredients VALUES (190,'Icing sugar','Nut ring');
 INSERT INTO Ingredients VALUES (225,'Roasted, chopped nuts','Nut ring');
+
 -- Nut cookie
 INSERT INTO Ingredients VALUES (750,'Fine-ground nuts','Nut cookie');
 INSERT INTO Ingredients VALUES (625,'Ground, roasted nuts','Nut cookie');
@@ -115,24 +117,28 @@ INSERT INTO Ingredients VALUES (125,'Bread crumbs','Nut cookie');
 INSERT INTO Ingredients VALUES (375,'Sugar','Nut cookie');
 INSERT INTO Ingredients VALUES (350,'Egg whites','Nut cookie');
 INSERT INTO Ingredients VALUES (50,'Chocolate','Nut cookie');
+
 -- Amneris
 INSERT INTO Ingredients VALUES (750,'Marzipan','Amneris');
 INSERT INTO Ingredients VALUES (250,'Butter','Amneris');
 INSERT INTO Ingredients VALUES (250,'Eggs','Amneris');
 INSERT INTO Ingredients VALUES (25,'Potato starch','Amneris');
 INSERT INTO Ingredients VALUES (25,'Wheat flour','Amneris');
+
 -- Tango
 INSERT INTO Ingredients VALUES (200,'Butter','Tango');
 INSERT INTO Ingredients VALUES (250,'Sugar','Tango');
 INSERT INTO Ingredients VALUES (300,'Flour','Tango');
 INSERT INTO Ingredients VALUES (4,'Sodium bicarbonate','Tango');
 INSERT INTO Ingredients VALUES (2,'Vanilla','Tango');
+
 -- Almond delight
 INSERT INTO Ingredients VALUES (400,'Butter','Almond delight');
 INSERT INTO Ingredients VALUES (270,'Sugar','Almond delight');
 INSERT INTO Ingredients VALUES (279,'Chopped almonds','Almond delight');
 INSERT INTO Ingredients VALUES (400,'Flour','Almond delight');
 INSERT INTO Ingredients VALUES (10,'Cinnamon','Almond delight');
+
 -- Berliner
 INSERT INTO Ingredients VALUES (350,'Flour','Berliner');
 INSERT INTO Ingredients VALUES (250,'Butter','Berliner');

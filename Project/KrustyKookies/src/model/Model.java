@@ -400,9 +400,9 @@ public class Model {
 	 * @return true if there is enough, false otherwise
 	 */
 	public boolean isEnoughRawMaterials(Pallet pallet) {
-		SELECT 
-		from Pallets, Ingedients, RawMaterials
-		where Pallets.recipeName = Ingredients.recipeName AND Ingredients.rawMaterialName = Rawmaterials.name
+		SELECT rawmaterial.quantity >= ingredients.quantity
+		FROM Pallets, Ingedients, RawMaterials
+		WHERE Pallets.recipeName = Ingredients.recipeName AND Ingredients.rawMaterialName = Rawmaterials.name
 		
 		return true;
 	}
