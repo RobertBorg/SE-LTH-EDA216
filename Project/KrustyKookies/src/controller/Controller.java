@@ -123,14 +123,15 @@ public class Controller {
 			view.showErrorDialog("Please fill all input fields.");
 		}else if(fromDate.length() == 0 && toDate.length() == 0) {	
 			//Search for id
-			Pallet result = null;
 			try {
-				int palletId = Integer.parseInt(searchText);
-				result = model.searchForPallet(palletId + "");
-				view.updateSearchBox(produceOutputForPallet(result, "found"));
+				long palletId = Long.parseLong(searchText);
+				Pallet result = model.searchForPallet(palletId);
+				ArrayList<Pallet> list = new ArrayList<Pallet>();
+				list.add(result);
+				produceOutputForPallets(list, "found");
 			} catch (NumberFormatException e ) {
 				//Search for recipe
-				ArrayList<Pallet> pallets = model.searchForPallet(searchText, null, null);
+				ArrayList<Pallet> pallets = model.searchForPallet(searchText);
 				produceOutputForPallets(pallets, "found");
 			}
 			return;

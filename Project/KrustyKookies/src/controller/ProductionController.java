@@ -83,15 +83,13 @@ public class ProductionController {
 			view.insertToProductionBox(message);			
 		}
 		
-		private void updateRawMaterialQuantities(Recipe recipe) {
-			for(Ingredient i : recipe.ingredients) {
-				if(!model.isEnoughRawMaterials(i)) {
+		private void updateRawMaterialQuantities(Pallet pallet) {
+				if(!model.isEnoughRawMaterials(pallet)) {
 					int newQuantity = 100000;
-					model.updateQuantity(i.rawMaterial, newQuantity);
-					Calendar cal = Calendar.getInstance();
-					view.insertToProductionBox(sdf.format(cal.getTime()) + " - " + i.rawMaterial.name + " quantity restored to " + newQuantity + " units");
+//					model.updateQuantity(pallet.rawMaterial, newQuantity);
+//					Calendar cal = Calendar.getInstance();
+//					view.insertToProductionBox(sdf.format(cal.getTime()) + " - " + i.rawMaterial.name + " quantity restored to " + newQuantity + " units");
 				}
-			}
 		}
 	}
 	
