@@ -20,6 +20,8 @@ public class Controller {
 		this.view = view;
 		this.model = model;
 		view.addSearchListener(new SearchListener());
+		view.addBlockedButtonListener(new BlockedListener());
+		view.addNotBlockedButtonListener(new UnBlockedListener());
 	}
 
 	private boolean validateDates() {
@@ -180,4 +182,24 @@ public class Controller {
 		}
 		return toReturn;
 	}	
+	
+	class BlockedListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			ArrayList<Pallet> pallets = model.getPalletsWithBlockStatus(true);
+			produceOutputForPallets(pallets, "found");
+		}
+		
+	}
+	
+	class UnBlockedListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ArrayList<Pallet> pallets = model.getPalletsWithBlockStatus(false);
+			produceOutputForPallets(pallets, "found");
+		}
+		
+	}
 }
