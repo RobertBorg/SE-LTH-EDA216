@@ -454,11 +454,11 @@ public class Model {
 			e.printStackTrace();
 		}
 		
-		Pallet rtn = null;
+		boolean rtn = false;
 		try {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				rtn = extractPallet(rs);
+				rtn = rs.getBoolean(0);
 				
 			}
 		} catch (SQLException e1) {
