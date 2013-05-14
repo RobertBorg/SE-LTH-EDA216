@@ -52,14 +52,14 @@ public class Model {
 	 * @return a string containing a nice description of the result (preferably
 	 *         formatted in a nice way). Returns null if nothing found.
 	 */
-	public Pallet searchForPallet(String palletId) {
+	public Pallet searchForPallet(long palletId) {
 		String sql = 
 				"Select * from Pallets where id = ? ";
 
 		PreparedStatement ps = null;
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, palletId);
+			ps.setLong(1, palletId);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -157,6 +157,47 @@ public class Model {
 			ps.setString(1, recipeName);
 			ps.setDate(2, fromDate);
 			ps.setDate(3, toDate);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					pallets.add(extractPallet(rs));
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} finally {
+				if(ps != null)
+					try {
+						ps.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			}
+		return pallets;
+	}
+	/**
+	 * 
+	 * @param recipeName
+	 * @param fromDate
+	 * @param toDate
+	 * @return A list containing the found pallets. Returns an empty list if no pallets were found.
+	 */
+	public ArrayList<Pallet> searchForPallet(String recipeName) {
+		ArrayList<Pallet> pallets = new ArrayList<Pallet>();
+
+		String sql = 
+				"Select * from Pallets where recipeName LIKE ?";
+
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, recipeName);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -400,11 +441,39 @@ public class Model {
 	 * @return true if there is enough, false otherwise
 	 */
 	public boolean isEnoughRawMaterials(Pallet pallet) {
-		SELECT rawmaterial.quantity >= ingredients.quantity
-		FROM Pallets, Ingedients, RawMaterials
-		WHERE Pallets.recipeName = Ingredients.recipeName AND Ingredients.rawMaterialName = Rawmaterials.name
+		String sql = 
+				"SELECT count(rawmaterials.quantity >= Ingredients.quantity) = sum(rawmaterials.quantity >= Ingredients.quantity) " +
+				"FROM Pallets, Ingredients, RawMaterials " +
+				"WHERE Pallets.recipeName = Ingredients.recipeName AND Ingredients.rawMaterialName = Rawmaterials.name AND Pallets.id = ?";
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setLong(1, pallet.id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		return true;
+		Pallet rtn = null;
+		try {
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				rtn = extractPallet(rs);
+				
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} finally {
+			if(ps != null)
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+		return rtn;
 	}
 	
 	/**
@@ -439,7 +508,37 @@ public class Model {
 	}
 	
 	public ArrayList<Pallet> getPalletsWithBlockStatus(boolean status) {
-		ArrayList<Pallet> toReturn = new ArrayList<Pallet>();
-		return toReturn;
+		ArrayList<Pallet> pallets = new ArrayList<Pallet>();
+
+		String sql = 
+				"Select * from Pallets where isBLocked = ? ";
+
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setBoolean(1, status);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					pallets.add(extractPallet(rs));
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} finally {
+				if(ps != null)
+					try {
+						ps.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			}
+		return pallets;
 	}
 }
